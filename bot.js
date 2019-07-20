@@ -34,6 +34,8 @@ function processCommand(receivedMessage) {
         isItUpCommand(arguments, receivedMessage)
     } else if (primaryCommand == "nslookup") {
         nslookupCommand(arguments, receivedMessage)
+    } else if (primaryCommand == "pwgen") {
+        pwgenCommand(arguments, receivedMessage)
     } else if (primaryCommand == "pwned") {
         pwnedCommand(arguments, receivedMessage)
     } else if (primaryCommand == "ssl") {
@@ -51,13 +53,15 @@ function helpCommand(arguments, receivedMessage) {
 	    	receivedMessage.channel.send("_isitup_ - check if a site is up or down.\nExample: `!isitup redbrick.dcu.ie`")
             } else if (arguments == "nslookup") {
 	    	receivedMessage.channel.send("_nslookup_ - uses nslookup to return any IP address info on domains.\nExample: `!nslookup redbrick.dcu.ie`")
+	    } else if (arguments == "pwgen") {
+	    	receivedMessage.channel.send("_pwgen_ - uses pwgen to generate a password and privately send it to you.\nExample: `!pwgen`")
 	    } else if (arguments == "pwned") {
 	    	receivedMessage.channel.send("_pwned_ - check if an email has been pwned.\nExample: `!pwned bertie@redbrick.dcu.ie`")
             } else if (arguments == "ssl") {
                 receivedMessage.channel.send("_ssl_ - check the certificate info of a website.\nExample: `!ssl redbrick.dcu.ie`")
             }
     } else {
-        receivedMessage.channel.send("Here is the list of brickbot commands:\n • isitup\n • nslookup\n • pwned\n • ssl\n • help")
+        receivedMessage.channel.send("Here is the list of brickbot commands:\n • isitup\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help")
     }
 }
 
@@ -67,15 +71,14 @@ function isItUpCommand(arguments, receivedMessage) {
 	return
     }
     else if (arguments.length > 0) {
-        request.post({
-            url:     'https://faas.jamesmcdermott.ie/function/isitup',
-            body:    arguments
+	request.post({
+	    url:     'https://faas.jamesmcdermott.ie/function/isitup',
+  	    body:    arguments
         }, function(error, response, body) {
-            receivedMessage.channel.send(boldify(body))
-        });
+	    receivedMessage.channel.send(boldify(body))
+        }); 
     }
 }
-
 
 function nslookupCommand(arguments, receivedMessage) {
     if (arguments.length == 0) {
@@ -90,6 +93,14 @@ function nslookupCommand(arguments, receivedMessage) {
             receivedMessage.channel.send(boldify(body))
         });
     }
+}
+
+function pwgenCommand(arguments, receivedMessage) {
+    request.get({
+        url:     'https://faas.jamesmcdermott.ie/function/pwgen',
+    }, function(error, response, body) {
+        receivedMessage.author.send(boldify("Generated Password: " + body))
+    });
 }
 
 function pwnedCommand(arguments, receivedMessage) {
