@@ -32,8 +32,12 @@ function processCommand(receivedMessage) {
         helpCommand(arguments, receivedMessage)
     } else if (primaryCommand == "isitup") {
         isItUpCommand(arguments, receivedMessage)
+    } else if (primaryCommand == "nslookup") {
+        nslookupCommand(arguments, receivedMessage)
     } else if (primaryCommand == "pwned") {
         pwnedCommand(arguments, receivedMessage)
+    } else if (primaryCommand == "ssl") {
+        sslCommand(arguments, receivedMessage)
     } else {
         receivedMessage.channel.send("I don't understand the command. Try `!help [command]`")
     }
@@ -45,11 +49,15 @@ function helpCommand(arguments, receivedMessage) {
     } else if (arguments.length == 1) {
 	    if (arguments == "isitup") {
 	    	receivedMessage.channel.send("_isitup_ - check if a site is up or down.\nExample: `!isitup redbrick.dcu.ie`")
+            } else if (arguments == "nslookup") {
+	    	receivedMessage.channel.send("_nslookup_ - uses nslookup to return any IP address info on domains.\nExample: `!nslookup redbrick.dcu.ie`")
 	    } else if (arguments == "pwned") {
-	    	receivedMessage.channel.send("_pwned_ - check if an email has been pwned .\nExample: `!pwned bertie@redbrick.dcu.ie`")
+	    	receivedMessage.channel.send("_pwned_ - check if an email has been pwned.\nExample: `!pwned bertie@redbrick.dcu.ie`")
+            } else if (arguments == "ssl") {
+                receivedMessage.channel.send("_ssl_ - check the certificate info of a website.\nExample: `!ssl redbrick.dcu.ie`")
             }
     } else {
-        receivedMessage.channel.send("Here is the list of brickbot commands:\n • isitup\n • pwned\n • help")
+        receivedMessage.channel.send("Here is the list of brickbot commands:\n • isitup\n • nslookup\n • pwned\n • ssl\n • help")
     }
 }
 
@@ -69,6 +77,21 @@ function isItUpCommand(arguments, receivedMessage) {
 }
 
 
+function nslookupCommand(arguments, receivedMessage) {
+    if (arguments.length == 0) {
+	receivedMessage.channel.send("No URL supplied. Try `!nslookup redbrick.dcu.ie`")
+	return
+    }
+    else if (arguments.length > 0) {
+        request.post({
+            url:     'https://faas.jamesmcdermott.ie/function/nslookup',
+            body:    arguments
+        }, function(error, response, body) {
+            receivedMessage.channel.send(boldify(body))
+        });
+    }
+}
+
 function pwnedCommand(arguments, receivedMessage) {
     email = arguments
     if (arguments.length == 0) {
@@ -87,6 +110,21 @@ function pwnedCommand(arguments, receivedMessage) {
             	}
         });
     } 
+}
+
+function sslCommand(arguments, receivedMessage) {
+    if (arguments.length == 0) {
+	receivedMessage.channel.send("No URL supplied. Try `!ssl redbrick.dcu.ie`")
+	return
+    }
+    else if (arguments.length > 0) {
+        request.post({
+            url:     'https://faas.jamesmcdermott.ie/function/certinfo',
+            body:    arguments
+        }, function(error, response, body) {
+            receivedMessage.channel.send(boldify(body))
+        });
+    }
 }
 
 bot_secret_token = fs.readFileSync("/tmp/brickbot.token", "utf-8").replace(/\n$/, '')
