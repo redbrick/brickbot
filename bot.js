@@ -30,6 +30,8 @@ function processCommand(receivedMessage) {
 
     if (primaryCommand == "help") {
         helpCommand(arguments, receivedMessage)
+    } else if (primaryCommand == "coinflip") {
+        coinflipCommand(arguments, receivedMessage)
     } else if (primaryCommand == "isitup") {
         isItUpCommand(arguments, receivedMessage)
     } else if (primaryCommand == "nslookup") {
@@ -49,7 +51,9 @@ function helpCommand(arguments, receivedMessage) {
     if (arguments.length > 1) {
         receivedMessage.channel.send("Please specify one single command. Try `!help [command]`")
     } else if (arguments.length == 1) {
-	    if (arguments == "isitup") {
+	    if (arguments == "coinflip") {
+	    	receivedMessage.channel.send("_coinflip_ - toss a coin.\nExample: `!coinflip`")
+	    } else if (arguments == "isitup") {
 	    	receivedMessage.channel.send("_isitup_ - check if a site is up or down.\nExample: `!isitup redbrick.dcu.ie`")
             } else if (arguments == "nslookup") {
 	    	receivedMessage.channel.send("_nslookup_ - uses nslookup to return any IP address info on domains.\nExample: `!nslookup redbrick.dcu.ie`")
@@ -61,8 +65,16 @@ function helpCommand(arguments, receivedMessage) {
                 receivedMessage.channel.send("_ssl_ - check the certificate info of a website.\nExample: `!ssl redbrick.dcu.ie`")
             }
     } else {
-        receivedMessage.channel.send("Here is the list of brickbot commands:\n • isitup\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help")
+        receivedMessage.channel.send("Here is the list of brickbot commands:\n • coinflip\n • isitup\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help")
     }
+}
+
+function coinflipCommand(arguments, receivedMessage) {
+    request.get({
+        url:     'https://faas.jamesmcdermott.ie/function/coinflip',
+    }, function(error, response, body) {
+        receivedMessage.channel.send(boldify("Came up " + body))
+    }); 
 }
 
 function isItUpCommand(arguments, receivedMessage) {
