@@ -18,6 +18,29 @@ function codify(contents) {
 	return "```" + contents + "```"
 }
 
+function parseTime(arr) {
+    var date = new Date(); var h = date.getHours(); var m = date.getMinutes()
+    var hr = parseInt(arr[0])
+    var min = parseInt(arr[1])
+    return [parseInt(arr[0]), h, parseInt(arr[1]), m]
+}
+
+function getTimeTo(hr, h, min, m) {
+    var hour = hr - h - 2
+    if (min - m < 0){
+        var minute = 60 + (min - m)
+    } else {
+        var minute = min - m
+    }
+    if (hour <= 0 && minute == 0) {
+        var timeTo = "Due"
+    } else if (hour <= 0) {
+        var timeTo = minute + " mins"
+    } else {
+        var timeTo = hour + " hr " + minute + " mins"
+    }
+    return timeTo
+}
 
 function processCommand(receivedMessage) {
     let fullCommand = receivedMessage.content.substr(1)
@@ -30,6 +53,8 @@ function processCommand(receivedMessage) {
 
     if (primaryCommand == "help") {
         helpCommand(arguments, receivedMessage)
+    } else if (primaryCommand == "bus") {
+        busCommand(arguments, receivedMessage)
     } else if (primaryCommand == "coinflip") {
         coinflipCommand(arguments, receivedMessage)
     } else if (primaryCommand == "isitup") {
@@ -51,7 +76,10 @@ function helpCommand(arguments, receivedMessage) {
     if (arguments.length > 1) {
         receivedMessage.channel.send("Please specify one single command. Try `!help [command]`")
     } else if (arguments.length == 1) {
-	    if (arguments == "coinflip") {
+            if (arguments == "bus") {
+                
+	    	receivedMessage.channel.send(codify("bus - check the schedule of a Dublin Bus stop.\n\nExample: '!bus 1635'\n\nThe nearest bus stops to DCU are 7516 (The Helix) and 37 (Ballymun Road)."))
+	    } else if (arguments == "coinflip") {
 	    	receivedMessage.channel.send(codify("coinflip - toss a coin.\n\nExample: '!coinflip'"))
 	    } else if (arguments == "isitup") {
 	    	receivedMessage.channel.send(codify("isitup - check if a site is up or down.\n\nExample: '!isitup redbrick.dcu.ie'"))
@@ -65,7 +93,29 @@ function helpCommand(arguments, receivedMessage) {
                 receivedMessage.channel.send(codify("ssl - check the certificate info of a website.\n\nExample: '!ssl redbrick.dcu.ie'"))
             }
     } else {
-        receivedMessage.channel.send(codify("Here is the list of brickbot commands:\n • coinflip\n • isitup\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help"))
+        receivedMessage.channel.send(codify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help"))
+    }
+}
+
+function busCommand(arguments, receivedMessage) {
+    if (arguments.length == 0) {
+	receivedMessage.channel.send("No stop supplied. Try `!bus 7571`")
+	return
+    }
+    else if (arguments.length > 0) {
+	request.post({
+	    url:     'https://faas.jamesmcdermott.ie/function/transport',
+  	    body:    "127.0.0.1:8000/bus/stop/" + arguments
+        }, function(error, response, body) {
+	    buses = JSON.parse(body).departures
+            var schedule = ""
+            for(var n in buses){
+                var parsed = parseTime(buses[n].MonitoredCall_ExpectedArrivalTime.substring(11, 16).split(":"))
+                var timeTo = getTimeTo(parsed[0], parsed[1], parsed[2], parsed[3])
+                schedule += (buses[n].MonitoredVehicleJourney_PublishedLineName + " (" + buses[n].MonitoredVehicleJourney_DestinationName + ") - " + timeTo + "\n")
+            }
+            receivedMessage.channel.send(codify(schedule))
+        }); 
     }
 }
 

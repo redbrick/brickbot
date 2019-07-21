@@ -27,6 +27,7 @@ If you're implementing functionality:
 
 ### Current Functions
 
+- [bus](https://github.com/RoryH/dublinbus-luas-api) by [RoryH](https://github.com/RoryH/dublinbus-luas-api)
 - [coinflip](https://gist.github.com/theycallmemac/f66b0afeca215df97869dd28612bea74) by [theycallmemac](https://github.com/theycallmemac/)
 - [isitup](https://github.com/theycallmemac/isitup) by [theycallmemac](https://github.com/theycallmemac/)
 - [nslookup](https://github.com/JockDaRock/nslookup_faas) by [JockDaRock](https://github.com/JockDaRock)
