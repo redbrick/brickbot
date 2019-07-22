@@ -14,34 +14,6 @@ bot.on('message', (receivedMessage) => {
     }
 })
 
-function codify(contents) {
-	return "```" + contents + "```"
-}
-
-function parseTime(arr) {
-    var date = new Date(); var h = date.getHours(); var m = date.getMinutes()
-    var hr = parseInt(arr[0])
-    var min = parseInt(arr[1])
-    return [parseInt(arr[0]), h, parseInt(arr[1]), m]
-}
-
-function getTimeTo(hr, h, min, m) {
-    var hour = hr - h - 2
-    if (min - m < 0){
-        var minute = 60 + (min - m)
-    } else {
-        var minute = min - m
-    }
-    if (hour <= 0 && minute == 0) {
-        var timeTo = "Due"
-    } else if (hour <= 0) {
-        var timeTo = minute + " mins"
-    } else {
-        var timeTo = hour + " hr " + minute + " mins"
-    }
-    return timeTo
-}
-
 function processCommand(receivedMessage) {
     let fullCommand = receivedMessage.content.substr(1)
     let splitCommand = fullCommand.split(" ")
@@ -59,6 +31,8 @@ function processCommand(receivedMessage) {
         coinflipCommand(arguments, receivedMessage)
     } else if (primaryCommand == "isitup") {
         isItUpCommand(arguments, receivedMessage)
+    } else if (primaryCommand == "luas") {
+        luasCommand(arguments, receivedMessage)
     } else if (primaryCommand == "nslookup") {
         nslookupCommand(arguments, receivedMessage)
     } else if (primaryCommand == "pwgen") {
@@ -83,6 +57,8 @@ function helpCommand(arguments, receivedMessage) {
 	    	receivedMessage.channel.send(codify("coinflip - toss a coin.\n\nExample: '!coinflip'"))
 	    } else if (arguments == "isitup") {
 	    	receivedMessage.channel.send(codify("isitup - check if a site is up or down.\n\nExample: '!isitup redbrick.dcu.ie'"))
+            } else if (arguments == "luas") {
+	    	receivedMessage.channel.send(codify("luas - check the schedule of a Luas stop.\n\nExample: '!luas harcourt'"))
             } else if (arguments == "nslookup") {
 	    	receivedMessage.channel.send(codify("nslookup - uses nslookup to return any IP address info on domains.\n\nExample: '!nslookup redbrick.dcu.ie'"))
 	    } else if (arguments == "pwgen") {
@@ -93,7 +69,7 @@ function helpCommand(arguments, receivedMessage) {
                 receivedMessage.channel.send(codify("ssl - check the certificate info of a website.\n\nExample: '!ssl redbrick.dcu.ie'"))
             }
     } else {
-        receivedMessage.channel.send(codify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help"))
+        receivedMessage.channel.send(codify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help"))
     }
 }
 
@@ -110,8 +86,8 @@ function busCommand(arguments, receivedMessage) {
 	    buses = JSON.parse(body).departures
             var schedule = ""
             for(var n in buses){
-                var parsed = parseTime(buses[n].MonitoredCall_ExpectedArrivalTime.substring(11, 16).split(":"))
-                var timeTo = getTimeTo(parsed[0], parsed[1], parsed[2], parsed[3])
+                var parsed = busparseTime(buses[n].MonitoredCall_ExpectedArrivalTime.substring(11, 16).split(":"))
+                var timeTo = busGetTimeTo(parsed[0], parsed[1], parsed[2], parsed[3])
                 schedule += (buses[n].MonitoredVehicleJourney_PublishedLineName + " (" + buses[n].MonitoredVehicleJourney_DestinationName + ") - " + timeTo + "\n")
             }
             receivedMessage.channel.send(codify(schedule))
@@ -138,6 +114,22 @@ function isItUpCommand(arguments, receivedMessage) {
   	    body:    arguments
         }, function(error, response, body) {
 	    receivedMessage.channel.send(codify(body))
+        }); 
+    }
+}
+
+function luasCommand(arguments, receivedMessage) {
+    if (arguments.length == 0) {
+	receivedMessage.channel.send("No stop supplied. Try `!luas harcourt`")
+        return
+    }
+    else if (arguments.length > 0) {
+	request.post({
+	    url:     'https://faas.jamesmcdermott.ie/function/transport',
+  	    body:    "127.0.0.1:8000/luas/stop/" + arguments
+        }, function(error, response, body) {
+                schedule = luasScheduleBuilder(body)
+                receivedMessage.channel.send(codify(schedule))
         }); 
     }
 }
@@ -202,3 +194,71 @@ function sslCommand(arguments, receivedMessage) {
 
 bot_secret_token = fs.readFileSync("/tmp/brickbot.token", "utf-8").replace(/\n$/, '')
 bot.login(bot_secret_token)
+
+
+
+////////////////////
+// HELPER FUNCTIONS
+///////////////////
+
+function codify(contents) {
+	return "```" + contents + "```"
+}
+
+function busParseTime(arr) {
+    var date = new Date(); var h = date.getHours(); var m = date.getMinutes()
+    var hr = parseInt(arr[0])
+    var min = parseInt(arr[1])
+    return [parseInt(arr[0]), h, parseInt(arr[1]), m]
+}
+
+function busGetTimeTo(hr, h, min, m) {
+    var hour = hr - h - 2
+    if (min - m < 0){
+        var minute = 60 + (min - m)
+    } else {
+        var minute = min - m
+    }
+    if (hour <= 0 && minute == 0) {
+        var timeTo = "Due"
+    } else if (hour <= 0) {
+        var timeTo = minute + " mins"
+    } else {
+        var timeTo = hour + " hr " + minute + " mins"
+    }
+    return timeTo
+}
+
+function luasScheduleBuilder(body) {
+    try {
+        var stopName = JSON.parse(body).stop
+        var directions = JSON.parse(body).direction
+        var schedule = ""
+        schedule += "Stop Name: " + stopName + "\n\n"
+        for(var direction in directions){
+            details = directions[direction]
+            schedule += "> " + details.name + "\n"
+            for (tram in details.tram) {
+                var journey = ""
+                var mins = details.tram[tram].dueMins
+                var destination = details.tram[tram].destination
+                if (mins != undefined && destination != undefined) {
+                    if (mins == "DUE") {
+                        journey += "   • " + destination + " - " + mins + "\n"
+                    } else {
+                        journey += "   • " + destination + " - " + mins + " mins\n"
+                    }
+                } else {
+                    journey += "   • No trams forecast\n"
+                }
+                schedule += journey
+            }
+        }
+        return schedule
+    } catch (err) {
+        receivedMessage.channel.send(codify("That stop doesn't exist."))
+        return
+    }
+}
+
+

@@ -27,9 +27,10 @@ If you're implementing functionality:
 
 ### Current Functions
 
-- [bus](https://github.com/RoryH/dublinbus-luas-api) by [RoryH](https://github.com/RoryH/dublinbus-luas-api)
+- [bus](https://github.com/RoryH/dublinbus-luas-api) by [RoryH](https://github.com/RoryH)
 - [coinflip](https://gist.github.com/theycallmemac/f66b0afeca215df97869dd28612bea74) by [theycallmemac](https://github.com/theycallmemac/)
-- [isitup](https://github.com/theycallmemac/isitup) by [theycallmemac](https://github.com/theycallmemac/)
+- [isitup](https://github.com/theycallmemac/isitup) by [theycallmemac](https://github.com/theycallmemac)
+- [luas](https://github.com/RoryH/dublinbus-luas-api) by [RoryH](https://github.com/RoryH)
 - [nslookup](https://github.com/JockDaRock/nslookup_faas) by [JockDaRock](https://github.com/JockDaRock)
 - [pwgen](https://github.com/openfaas/faas/tree/master/sample-functions/pwgen) by [alexellis](https://github.com/alexellis)
 - [pwned](https://github.com/openfaas/faas/tree/master/sample-functions/haveibeenpwned) by [alexellis](https://github.com/alexellis)
