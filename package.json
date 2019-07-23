@@ -1,7 +1,24 @@
 {
+  "name": "brickbot-stats",
+  "version": "1.0.0",
+  "description": "A simple bot for the new Redbrick Discord, made extendible by OpenFaaS.",
+  "main": "bot.js",
+  "scripts": {
+    "start": "echo '> Running brickbot ...' && node bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theycallmemac/brickbot.git"
+  },
+  "author": "James McDermott (theycallmemac)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theycallmemac/brickbot/issues"
+  },
   "dependencies": {
     "discord.js": "^11.5.1",
     "fs": "^0.0.1-security",
     "request": "^2.88.0"
-  }
+  },
+  "homepage": "https://github.com/theycallmemac/brickbot#readme"
 }

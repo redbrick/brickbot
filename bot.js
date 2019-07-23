@@ -86,7 +86,7 @@ function busCommand(arguments, receivedMessage) {
 	    buses = JSON.parse(body).departures
             var schedule = ""
             for(var n in buses){
-                var parsed = busparseTime(buses[n].MonitoredCall_ExpectedArrivalTime.substring(11, 16).split(":"))
+                var parsed = busParseTime(buses[n].MonitoredCall_ExpectedArrivalTime.substring(11, 16).split(":"))
                 var timeTo = busGetTimeTo(parsed[0], parsed[1], parsed[2], parsed[3])
                 schedule += (buses[n].MonitoredVehicleJourney_PublishedLineName + " (" + buses[n].MonitoredVehicleJourney_DestinationName + ") - " + timeTo + "\n")
             }

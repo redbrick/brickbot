@@ -4,9 +4,9 @@ A simple bot for the new [Redbrick](https://github.com/redbrick) Discord.
 
 ### How it works
 
-brickbot is very simple. brickbot is a single JavaScript file which runs as a systemd service, and all it needs to do is make HTTP Requests to functions I run using [OpenFaas](https://github.com/openfaas/faas). This means that no matter what your preferred language is, you're able to extend the functionality of brickbot. All I need to do is take your code, and add it to my Docker Swarm. 
+brickbot is very simple. brickbot is a single JavaScript file which runs as a systemd service, and all it needs to do is make HTTP Requests to functions I run using [OpenFaaS](https://github.com/openfaas/faas). This means that no matter what your preferred language is, you're able to extend the functionality of brickbot. All I need to do is take your code, and add it to my Docker Swarm. 
 
-If you're interested in OpenFaas I really recommend trying it out. Serverless is something worth learning (in my opinion), it's really started to change how I write code. There's some great articles out there on it but I personally found [this one](https://medium.com/@thomas.shaw78/bash-functions-as-a-service-b4033bc1ee97) to be the most helpful.
+If you're interested in OpenFaaS I really recommend trying it out. Serverless is something worth learning (in my opinion), it's really started to change how I write code. There's some great articles out there on it but I personally found [this one](https://medium.com/@thomas.shaw78/bash-functions-as-a-service-b4033bc1ee97) to be the most helpful.
 
 ### Contributing
 
@@ -22,7 +22,7 @@ If you're suggesting new functionality feel free to make an issue detailing:
 
 If you're implementing functionality:
 - make a PR with the relevant code added to bot.js
-- ensure your PR has a link to the code you want deployed with OpenFaas (I'll make sure it is deployed)
+- ensure your PR has a link to the code you want deployed with OpenFaaS (I'll make sure it is deployed)
 - add the command and it's creator to the list of functions below
 
 ### Current Functions
