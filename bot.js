@@ -28,6 +28,8 @@ function processCommand(receivedMessage) {
 		busCommand(args, receivedMessage);
 	} else if (primaryCommand == "coinflip") {
 		coinflipCommand(args, receivedMessage);
+	} else if (primaryCommand == "wiki") {
+		wikiCommand(args, receivedMessage);
 	} else if (primaryCommand == "isitup") {
 		isItUpCommand(args, receivedMessage);
 	} else if (primaryCommand == "luas") {
@@ -65,9 +67,11 @@ function helpCommand(args, receivedMessage) {
                 receivedMessage.channel.send(codify("pwned - check if an email has been pwned.\n\nExample: '!pwned bertie@redbrick.dcu.ie'"));
             } else if (args == "ssl") {
                 receivedMessage.channel.send(codify("ssl - check the certificate info of a website.\n\nExample: '!ssl redbrick.dcu.ie'"));
-            }
+            } else if (args == "wiki") {
+		        receivedMessage.channel.send(codify("wiki - return a random page from wiki.redbrick.dcu.ie.\n\nExample: '!wiki'"));
+	    	}
         } else {
-            receivedMessage.channel.send(codify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help"));
+            receivedMessage.channel.send(codify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help\n • wiki"));
         }
 }
 
@@ -188,6 +192,20 @@ function sslCommand(args, receivedMessage) {
 			receivedMessage.channel.send(codify(body));
 		});
 	}
+}
+
+function wikiCommand(args, receivedMessage) {
+	if (args.length > 0) {
+		receivedMessage.channel.send("Too many arguments. Try '!wiki' on it's own (New features on the way!)");
+		return;
+	}
+	else if (args.length == 0) {
+		request.get({
+			url:     "https://faas.jamesmcdermott.ie/function/wiki",
+		}, function(error, response, body) {
+			receivedMessage.channel.send(codify(body));
+		});
+	}  
 }
 
 var bot_secret_token = fs.readFileSync("/tmp/brickbot.token", "utf-8").replace(/\n$/, "");

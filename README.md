@@ -35,3 +35,4 @@ If you're implementing functionality:
 - [pwgen](https://github.com/openfaas/faas/tree/master/sample-functions/pwgen) by [alexellis](https://github.com/alexellis)
 - [pwned](https://github.com/openfaas/faas/tree/master/sample-functions/haveibeenpwned) by [alexellis](https://github.com/alexellis)
 - [ssl](https://github.com/stefanprodan/openfaas-certinfo) by [stefanprodan](https://github.com/stefanprodan)
+- [wiki](https://github.com/ciankehoe/brickbot-wiki) by [ciankehoe](https://github.com/ciankehoe)
