@@ -71,7 +71,7 @@ function helpCommand(args, receivedMessage) {
 		        receivedMessage.channel.send(codify("wiki - return a random page from wiki.redbrick.dcu.ie.\n\nExample: '!wiki'"));
 	    	}
         } else {
-            receivedMessage.channel.send(codify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help"));
+            receivedMessage.channel.send(codify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help\n • wiki"));
         }
 }
 
