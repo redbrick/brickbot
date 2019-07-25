@@ -203,7 +203,7 @@ function wikiCommand(args, receivedMessage) {
 		request.get({
 			url:     "https://faas.jamesmcdermott.ie/function/wiki",
 		}, function(error, response, body) {
-			receivedMessage.channel.send(codify(body));
+			receivedMessage.channel.send(body);
 		});
 	}  
 }
