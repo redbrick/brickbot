@@ -4,7 +4,7 @@
   "description": "A simple bot for the new Redbrick Discord, made extendible by OpenFaaS.",
   "main": "bot.js",
   "scripts": {
-    "precommit": "eslint --ignore-path .gitignore --fix .",
+    "lint": "eslint --ignore-path .gitignore --fix .",
     "start": "echo '> Running brickbot ...' && node bot.js"
   },
   "repository": {

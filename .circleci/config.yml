@@ -11,8 +11,29 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - run: yarn install
+      - run:
+          name: Install Dependencies
+          command: yarn install
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+  test:
+    docker:
+      - image: alpine
+        environment:
+          ENV: CI
+    working_directory: ~/brickbot
+    steps:
+      - checkout
+      - run:
+          name: Get Cache Checksum
+          command: ls -lnR source > deps_checksum
+      - restore_cache:
+          keys:
+            - build-cache-{{ .Branch }}-{{ checksum "deps_checksum" }}
+            - build-cache-{{ .Branch }}
+      - run:
+          name: eslint Test
+          command: yarn lint
+          prefix: tests

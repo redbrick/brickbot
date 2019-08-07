@@ -68,8 +68,8 @@ function helpCommand(args, receivedMessage) {
             } else if (args == "ssl") {
                 receivedMessage.channel.send(codify("ssl - check the certificate info of a website.\n\nExample: '!ssl redbrick.dcu.ie'"));
             } else if (args == "wiki") {
-		        receivedMessage.channel.send(codify("wiki - return a random page from wiki.redbrick.dcu.ie.\n\nExample: '!wiki'"));
-	    	}
+                receivedMessage.channel.send(codify("wiki - return a random page from wiki.redbrick.dcu.ie.\n\nExample: '!wiki'"));
+            }
         } else {
             receivedMessage.channel.send(codify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help\n • wiki"));
         }
