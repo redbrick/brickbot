@@ -40,7 +40,10 @@ jobs:
           ENV: CI
     working_directory: ~/brickbot
     steps:
-      - checkout
+      - checkout      
+      - run:
+          name: install python requests
+          command: pip3 install requests
       - run:
           name: endpoints test
           command: python3 tests/endpoints.py
