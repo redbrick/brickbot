@@ -30,3 +30,9 @@ jobs:
           name: eslint Test
           command: yarn lint
           prefix: tests
+workflows:
+  version: 2
+  workflow:
+    jobs:
+    - build
+    - test
