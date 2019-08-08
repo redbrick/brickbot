@@ -43,7 +43,7 @@ jobs:
       - checkout
       - run:
           name: endpoints test
-          command: python3 endspoints.py
+          command: python3 endpoints.py
           prefix: tests
 workflows:
   version: 2
