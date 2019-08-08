@@ -18,7 +18,7 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-  test:
+  lint:
     docker:
       - image: circleci/node:8.10
         environment:
@@ -30,12 +30,25 @@ jobs:
           name: Install the latest eslint
           command: sudo npm install -g eslint
       - run:
-          name: eslint Test
+          name: eslint test
           command: yarn lint
+          prefix: tests
+  endpoints:
+    docker:
+      - image: circleci/python:3.6.4
+        environment:
+          ENV: CI
+    working_directory: ~/brickbot/tests
+    steps:
+      - checkout
+      - run:
+          name: endpoints test
+          command: python3 endspoints.py
           prefix: tests
 workflows:
   version: 2
   workflow:
     jobs:
     - build
-    - test
+    - lint
+    - endpoints
