@@ -23,6 +23,7 @@ If you're suggesting new functionality feel free to make an issue detailing:
 If you're implementing functionality:
 - make a PR with the relevant code added to bot.js
 - ensure your PR has a link to the code you want deployed with OpenFaaS (I'll make sure it is deployed)
+- add your command to the function list in `get_test_set_one` ([in this file](https://github.com/theycallmemac/brickbot/blob/master/tests/endpoints.py)) along with it's expected result of 0 to it's respective list
 - add the command and it's creator to the list of functions below
 
 ### Current Functions
