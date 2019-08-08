@@ -27,6 +27,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install the latest eslint
+          command: sudo npm install -g eslint
+      - run:
           name: eslint Test
           command: yarn lint
           prefix: tests
