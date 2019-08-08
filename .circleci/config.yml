@@ -38,12 +38,12 @@ jobs:
       - image: circleci/python:3.6.4
         environment:
           ENV: CI
-    working_directory: ~/brickbot/tests
+    working_directory: ~/brickbot
     steps:
       - checkout
       - run:
           name: endpoints test
-          command: python3 endpoints.py
+          command: python3 tests/endpoints.py
           prefix: tests
 workflows:
   version: 2
