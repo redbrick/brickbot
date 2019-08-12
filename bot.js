@@ -60,7 +60,7 @@ function processCommand(receivedMessage) {
                 wikiCommand(args, receivedMessage);
                 break;
             default:
-                receivedMessage.channel.send("I don't understand the command. Try `!help [command]`");
+                receivedMessage.channel.send(embedify("I don't understand the command. Try `!help [command]`"));
 	}
 }
 
@@ -72,7 +72,7 @@ function processCommand(receivedMessage) {
 
 function helpCommand(args, receivedMessage) {
 	if (args.length > 1) {
-		receivedMessage.channel.send("Please specify one single command. Try `!help [command]`");
+		receivedMessage.channel.send(embedify("Please specify one single command. Try `!help [command]`"));
 	} else if (args.length == 1) {
             switch (args) {
                 case "bus":
@@ -105,7 +105,7 @@ function helpCommand(args, receivedMessage) {
                     break;
             }
         } else {
-            receivedMessage.channel.send(embedify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help\n • wiki"));
+            receivedMessage.channel.send(embedify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help\n - wiki"));
         }
 }
 
