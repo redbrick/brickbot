@@ -76,36 +76,36 @@ function helpCommand(args, receivedMessage) {
 	} else if (args.length == 1) {
             switch (args) {
                 case "bus":
-                    receivedMessage.channel.send(codify(`bus - check the schedule of a Dublin Bus stop.\n\nExample: '!bus 1635'\n\n
+                    receivedMessage.channel.send(embedify(`bus - check the schedule of a Dublin Bus stop.\n\nExample: '!bus 1635'\n\n
                                                         The nearest bus stops to DCU are 7516 (The Helix) and 37 (Ballymun Road).`));
                 break;
                 case "coinflip":
-                    receivedMessage.channel.send(codify("coinflip - toss a coin.\n\nExample: '!coinflip'"));
+                    receivedMessage.channel.send(embedify("coinflip - toss a coin.\n\nExample: '!coinflip'"));
                     break;
                 case "isitup":
-                    receivedMessage.channel.send(codify("isitup - check if a site is up or down.\n\nExample: '!isitup redbrick.dcu.ie'"));
+                    receivedMessage.channel.send(embedify("isitup - check if a site is up or down.\n\nExample: '!isitup redbrick.dcu.ie'"));
                     break;
                 case "luas":
-                    receivedMessage.channel.send(codify("luas - check the schedule of a Luas stop.\n\nExample: '!luas harcourt'"));
+                    receivedMessage.channel.send(embedify("luas - check the schedule of a Luas stop.\n\nExample: '!luas harcourt'"));
                     break;
                 case "nslookup":
-                    receivedMessage.channel.send(codify("nslookup - uses nslookup to return any IP address info on domains.\n\nExample: '!nslookup redbrick.dcu.ie'"));
+                    receivedMessage.channel.send(embedify("nslookup - uses nslookup to return any IP address info on domains.\n\nExample: '!nslookup redbrick.dcu.ie'"));
                     break;
                 case "pwgen":
-                    receivedMessage.channel.send(codify("pwgen - uses pwgen to generate a password and privately send it to you.\n\nExample: '!pwgen'`"));
+                    receivedMessage.channel.send(embedify("pwgen - uses pwgen to generate a password and privately send it to you.\n\nExample: '!pwgen'`"));
                     break;
                 case "pwned":
-                    receivedMessage.channel.send(codify("pwned - check if an email has been pwned.\n\nExample: '!pwned bertie@redbrick.dcu.ie'"));
+                    receivedMessage.channel.send(embedify("pwned - check if an email has been pwned.\n\nExample: '!pwned bertie@redbrick.dcu.ie'"));
                     break;
                 case "ssl":
-                    receivedMessage.channel.send(codify("ssl - check the certificate info of a website.\n\nExample: '!ssl redbrick.dcu.ie'"));
+                    receivedMessage.channel.send(embedify("ssl - check the certificate info of a website.\n\nExample: '!ssl redbrick.dcu.ie'"));
                     break;
                 case "wiki":
-                    receivedMessage.channel.send(codify("wiki - return a random page from wiki.redbrick.dcu.ie.\n\nExample: '!wiki'"));
+                    receivedMessage.channel.send(embedify("wiki - return a random page from wiki.redbrick.dcu.ie.\n\nExample: '!wiki'"));
                     break;
             }
         } else {
-            receivedMessage.channel.send(codify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help\n • wiki"));
+            receivedMessage.channel.send(embedify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help\n • wiki"));
         }
 }
 
@@ -126,7 +126,7 @@ function busCommand(args, receivedMessage) {
                             var timeTo = busGetTimeTo(parsed[0], parsed[1], parsed[2], parsed[3]);
                             schedule += (buses[n].MonitoredVehicleJourney_PublishedLineName + " (" + buses[n].MonitoredVehicleJourney_DestinationName + ") - " + timeTo + "\n");
                         }
-                        receivedMessage.channel.send(codify(schedule));
+                        receivedMessage.channel.send(embedify(schedule));
                 }); 
 	}
 }
@@ -135,7 +135,7 @@ function coinflipCommand(args, receivedMessage) {
 	request.get({
 		url:     "https://faas.jamesmcdermott.ie/function/coinflip",
 	}, function(error, response, body) {
-		receivedMessage.channel.send(codify("Came up " + body));
+		receivedMessage.channel.send(embedify("Came up " + body));
 	}); 
 }
 
@@ -149,7 +149,7 @@ function isItUpCommand(args, receivedMessage) {
                     url:     "https://faas.jamesmcdermott.ie/function/isitup",
                     body:    args
                 }, function(error, response, body) {
-                    receivedMessage.channel.send(codify(body));
+                    receivedMessage.channel.send(embedify(body));
                 }); 
         }
 }
@@ -165,7 +165,7 @@ function luasCommand(args, receivedMessage) {
                     body:    "127.0.0.1:8000/luas/stop/" + args
                 }, function(error, response, body) {
                     var schedule = luasScheduleBuilder(body);
-                    receivedMessage.channel.send(codify(schedule));
+                    receivedMessage.channel.send(embedify(schedule));
 		}); 
 	}
 }
@@ -180,7 +180,7 @@ function nslookupCommand(args, receivedMessage) {
 			url:     "https://faas.jamesmcdermott.ie/function/nslookup",
 			body:    args
 		}, function(error, response, body) {
-			receivedMessage.channel.send(codify(body));
+			receivedMessage.channel.send(embedify(body));
 		});
 	}
 }
@@ -189,7 +189,7 @@ function pwgenCommand(args, receivedMessage) {
 	request.get({
 		url:     "https://faas.jamesmcdermott.ie/function/pwgen",
 	}, function(error, response, body) {
-		receivedMessage.author.send(codify("Generated Password: " + body));
+		receivedMessage.author.send(embedify("Generated Password: " + body));
 	});
 }
 
@@ -205,9 +205,9 @@ function pwnedCommand(args, receivedMessage) {
 		}, function(error, response, body) {
 			var n = JSON.parse(body).found;
 			if (n == 0) { 
-                            receivedMessage.channel.send(codify(email + " has not been pwned"));
+                            receivedMessage.channel.send(embedify(email + " has not been pwned"));
                         } else {
-                            receivedMessage.channel.send(codify(email + " has been pwned"));
+                            receivedMessage.channel.send(embedify(email + " has been pwned"));
                         }
                 });
         } 
@@ -223,7 +223,7 @@ function sslCommand(args, receivedMessage) {
 			url:     "https://faas.jamesmcdermott.ie/function/certinfo",
 			body:    args
 		}, function(error, response, body) {
-			receivedMessage.channel.send(codify(body));
+			receivedMessage.channel.send(embedify(body));
 		});
 	}
 }
@@ -237,7 +237,7 @@ function wikiCommand(args, receivedMessage) {
 		request.get({
 			url:     "https://faas.jamesmcdermott.ie/function/wiki",
 		}, function(error, response, body) {
-			receivedMessage.channel.send(body);
+			receivedMessage.channel.send(embedify(body));
 		});
 	}  
 }
@@ -247,20 +247,34 @@ bot.login(bot_secret_token);
 
 
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // HELPER FUNCTIONS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function codify(contents) {
-	return "```" + contents + "```";
+function embedify(contents) {
+	return {embed: {
+		color: 0xAA0202,
+		author: {
+                    name: bot.user.username,
+                    icon_url: bot.user.avatarURL
+                },
+                description: contents,
+                timestamp: new Date(),
+                footer: {
+                    icon_url: bot.user.avatarURL,
+                    text: "© Redbrick"
+                }
+            }
+        };
 }
 
 function argumentsUsedExample(receivedMessage, required, command) {
-    receivedMessage.channel.send("No " + required + " supplied. " + "Try `" + command + "`");
+    receivedMessage.channel.send(embedify("No " + required + " supplied. " + "Try `" + command + "`"));
 }
 
 function noArgumentsUsedExample(receivedMessage, command) {
-    receivedMessage.channel.send("Too many arguments supplied. Try `" + command + "`");
+    receivedMessage.channel.send(embedify("Too many arguments supplied. Try `" + command + "`"));
 }
 
 function busParseTime(arr) {
