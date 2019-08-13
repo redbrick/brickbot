@@ -79,7 +79,7 @@ function helpCommand(args, receivedMessage) {
 	} else if (args.length == 1) {
             switch (args[0]) {
                 case "bus":
-                    receivedMessage.channel.send(codify("bus - check the schedule of a Dublin Bus stop.\n\nExample: '!bus 1635'\n\nThe nearest bus stops to DCU are 7516 (The Helix) and 37 (Ballymun Road)"));
+                    receivedMessage.channel.send(embedify("bus - check the schedule of a Dublin Bus stop.\n\nExample: '!bus 1635'\n\nThe nearest bus stops to DCU are 7516 (The Helix) and 37 (Ballymun Road)"));
                 break;
                 case "coinflip":
                     receivedMessage.channel.send(embedify("coinflip - toss a coin.\n\nExample: '!coinflip'"));
@@ -103,14 +103,14 @@ function helpCommand(args, receivedMessage) {
                     receivedMessage.channel.send(embedify("ssl - check the certificate info of a website.\n\nExample: '!ssl redbrick.dcu.ie'"));
                     break;
                 case "uptime":
-                    receivedMessage.channel.send(codify("uptime - check the uptime of brickbot.\n\nExample '!uptime'"));
+                    receivedMessage.channel.send(embedify("uptime - check the uptime of brickbot.\n\nExample '!uptime'"));
                     break;
                 case "wiki":
                     receivedMessage.channel.send(embedify("wiki - return a random page from wiki.redbrick.dcu.ie.\n\nExample: '!wiki'"));
                     break;
             }
         } else {
-            receivedMessage.channel.send(codify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • uptime\n • wiki\n • help\n"));
+            receivedMessage.channel.send(embedify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • uptime\n • wiki\n • help\n"));
         }
 }
 
@@ -245,7 +245,7 @@ function uptimeCommand(args, receivedMessage) {
                 totalSeconds %= 3600;
                 let minutes = Math.floor(totalSeconds / 60);
                 let seconds = Math.round(totalSeconds % 60);
-                receivedMessage.channel.send(codify(`${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`));
+                receivedMessage.channel.send(embedify(`${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`));
 	}
 }
 
@@ -291,12 +291,12 @@ function embedify(contents) {
 }
 
 function argumentsUsedExample(receivedMessage, required, command) {
-    command = codify(command);
+    command = embedify(command);
     receivedMessage.channel.send(`No ${required} supplied. Try ${command}`);
 }
 
 function noArgumentsUsedExample(receivedMessage, command) {
-    command = codify(command);
+    command = embedify(command);
     receivedMessage.channel.send(`Too many arguments supplied. Try ${command}`);
 }
 
