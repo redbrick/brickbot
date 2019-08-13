@@ -56,6 +56,9 @@ function processCommand(receivedMessage) {
             case "ssl":
                 sslCommand(args, receivedMessage);
                 break;
+            case "uptime":
+                uptimeCommand(args, receivedMessage);
+                break;
             case "wiki":
                 wikiCommand(args, receivedMessage);
                 break;
@@ -74,10 +77,9 @@ function helpCommand(args, receivedMessage) {
 	if (args.length > 1) {
 		receivedMessage.channel.send(embedify("Please specify one single command. Try `!help [command]`"));
 	} else if (args.length == 1) {
-            switch (args) {
+            switch (args[0]) {
                 case "bus":
-                    receivedMessage.channel.send(embedify(`bus - check the schedule of a Dublin Bus stop.\n\nExample: '!bus 1635'\n\n
-                                                        The nearest bus stops to DCU are 7516 (The Helix) and 37 (Ballymun Road).`));
+                    receivedMessage.channel.send(embedify("bus - check the schedule of a Dublin Bus stop.\n\nExample: '!bus 1635'\n\nThe nearest bus stops to DCU are 7516 (The Helix) and 37 (Ballymun Road)"));
                 break;
                 case "coinflip":
                     receivedMessage.channel.send(embedify("coinflip - toss a coin.\n\nExample: '!coinflip'"));
@@ -100,12 +102,15 @@ function helpCommand(args, receivedMessage) {
                 case "ssl":
                     receivedMessage.channel.send(embedify("ssl - check the certificate info of a website.\n\nExample: '!ssl redbrick.dcu.ie'"));
                     break;
+                case "uptime":
+                    receivedMessage.channel.send(embedify("uptime - check the uptime of brickbot.\n\nExample '!uptime'"));
+                    break;
                 case "wiki":
                     receivedMessage.channel.send(embedify("wiki - return a random page from wiki.redbrick.dcu.ie.\n\nExample: '!wiki'"));
                     break;
             }
         } else {
-            receivedMessage.channel.send(embedify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • help\n - wiki"));
+            receivedMessage.channel.send(embedify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • uptime\n • wiki\n • help\n"));
         }
 }
 
@@ -228,6 +233,22 @@ function sslCommand(args, receivedMessage) {
 	}
 }
 
+function uptimeCommand(args, receivedMessage) {
+	if (args.length > 0) {
+                noArgumentsUsedExample(receivedMessage, "!uptime");
+		return;
+	}
+	else if (args.length == 0) {
+                let totalSeconds = (bot.uptime / 1000);
+                let days = Math.floor(totalSeconds / 86400);
+                let hours = Math.floor(totalSeconds / 3600);
+                totalSeconds %= 3600;
+                let minutes = Math.floor(totalSeconds / 60);
+                let seconds = Math.round(totalSeconds % 60);
+                receivedMessage.channel.send(embedify(`${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`));
+	}
+}
+
 function wikiCommand(args, receivedMessage) {
 	if (args.length > 0) {
                 noArgumentsUsedExample(receivedMessage, "!wiki");
@@ -270,11 +291,13 @@ function embedify(contents) {
 }
 
 function argumentsUsedExample(receivedMessage, required, command) {
-    receivedMessage.channel.send(embedify("No " + required + " supplied. " + "Try `" + command + "`"));
+    command = embedify(command);
+    receivedMessage.channel.send(`No ${required} supplied. Try ${command}`);
 }
 
 function noArgumentsUsedExample(receivedMessage, command) {
-    receivedMessage.channel.send(embedify("Too many arguments supplied. Try `" + command + "`"));
+    command = embedify(command);
+    receivedMessage.channel.send(`Too many arguments supplied. Try ${command}`);
 }
 
 function busParseTime(arr) {

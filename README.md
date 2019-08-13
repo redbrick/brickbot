@@ -1,5 +1,7 @@
 # brickbot
 
+[![CircleCI](https://circleci.com/gh/theycallmemac/brickbot.svg?style=svg)](https://circleci.com/gh/theycallmemac/brickbot)
+
 A simple bot for the new [Redbrick](https://github.com/redbrick) Discord.
 
 ### How it works
