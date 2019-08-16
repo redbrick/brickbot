@@ -239,13 +239,12 @@ function uptimeCommand(args, receivedMessage) {
 		return;
 	}
 	else if (args.length == 0) {
-                let totalSeconds = (bot.uptime / 1000);
-                let days = Math.floor(totalSeconds / 86400);
-                let hours = Math.floor(totalSeconds / 3600);
-                totalSeconds %= 3600;
-                let minutes = Math.floor(totalSeconds / 60);
-                let seconds = Math.round(totalSeconds % 60);
-                receivedMessage.channel.send(embedify(`${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`));
+                request.post({
+			url:     "https://faas.jamesmcdermott.ie/function/uptime",
+			body:    String(bot.uptime / 1000)
+		}, function(error, response, body) {
+			receivedMessage.channel.send(embedify(body));
+		});
 	}
 }
 
