@@ -37,6 +37,7 @@ If you're implementing functionality:
 - [nslookup](https://github.com/JockDaRock/nslookup_faas) by [JockDaRock](https://github.com/JockDaRock)
 - [pwgen](https://github.com/openfaas/faas/tree/master/sample-functions/pwgen) by [alexellis](https://github.com/alexellis)
 - [pwned](https://github.com/openfaas/faas/tree/master/sample-functions/haveibeenpwned) by [alexellis](https://github.com/alexellis)
+- [room](https://gist.github.com/theycallmemac/43b8c9973b978fa7cb2769cc6f3d4cdc) by [gruunday](https://github.com/gruunday)
 - [ssl](https://github.com/stefanprodan/openfaas-certinfo) by [stefanprodan](https://github.com/stefanprodan)
 - [wiki](https://github.com/ciankehoe/brickbot-wiki) by [ciankehoe](https://github.com/ciankehoe)
 - [uptime](https://gist.github.com/theycallmemac/36a0bfa7455c74dd50a76d2190478e91) by [ciankehoe](https://github.com/theycallmemac)
