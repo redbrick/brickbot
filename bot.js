@@ -53,6 +53,9 @@ function processCommand(receivedMessage) {
             case "pwned":
                 pwnedCommand(args, receivedMessage);
                 break;
+            case "room":
+                roomCommand(args, receivedMessage);
+                break;
             case "ssl":
                 sslCommand(args, receivedMessage);
                 break;
@@ -99,6 +102,9 @@ function helpCommand(args, receivedMessage) {
                 case "pwned":
                     receivedMessage.channel.send(embedify("pwned - check if an email has been pwned.\n\nExample: '!pwned bertie@redbrick.dcu.ie'"));
                     break;
+                case "room":
+                    receivedMessage.channel.send(embedify("room - provides timetable information for a specified room or building in DCU.\n\nExample: '!room GLA.LG26'"));
+                    break;
                 case "ssl":
                     receivedMessage.channel.send(embedify("ssl - check the certificate info of a website.\n\nExample: '!ssl redbrick.dcu.ie'"));
                     break;
@@ -110,7 +116,7 @@ function helpCommand(args, receivedMessage) {
                     break;
             }
         } else {
-            receivedMessage.channel.send(embedify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • ssl\n • uptime\n • wiki\n • help\n"));
+            receivedMessage.channel.send(embedify("Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • room\n • ssl\n • uptime\n • wiki\n • help\n"));
         }
 }
 
@@ -137,11 +143,16 @@ function busCommand(args, receivedMessage) {
 }
 
 function coinflipCommand(args, receivedMessage) {
-	request.get({
-		url:     "https://faas.jamesmcdermott.ie/function/coinflip",
-	}, function(error, response, body) {
-		receivedMessage.channel.send(embedify("Came up " + body));
-	}); 
+        if (args.length > 0) {
+            noArgumentsUsedExample(receivedMessage, "!coinflip");
+        }
+	else if (args.length == 0) {
+                request.get({
+                    url:     "https://faas.jamesmcdermott.ie/function/coinflip",
+                }, function(error, response, body) {
+                    receivedMessage.channel.send(embedify("Came up " + body));
+                });
+        }
 }
 
 function isItUpCommand(args, receivedMessage) {
@@ -218,6 +229,22 @@ function pwnedCommand(args, receivedMessage) {
         } 
 }
 
+function roomCommand(args, receivedMessage) {
+	if (args.length == 0) {
+		argumentsUsedExample(receivedMessage, "room", "!room GLA.LG26");
+		return;
+	}
+	else if (args.length > 0) {
+		request.post({
+			url:     "https://faas.jamesmcdermott.ie/function/dcurooms",
+			body:    args
+		}, function(error, response, body) {
+			receivedMessage.channel.send(embedify(body));
+		});
+	}
+
+}
+
 function sslCommand(args, receivedMessage) {
 	if (args.length == 0) {
 		argumentsUsedExample(receivedMessage, "URL", "!ssl redbrick.dcu.ie");
@@ -289,14 +316,12 @@ function embedify(contents) {
         };
 }
 
-function argumentsUsedExample(receivedMessage, required, command) {
-    command = embedify(command);
-    receivedMessage.channel.send(`No ${required} supplied. Try ${command}`);
+function argumentsUsedExample(receivedMessage, required, example) {
+    receivedMessage.channel.send(embedify(`No ${required} supplied. Try ${example}`));
 }
 
-function noArgumentsUsedExample(receivedMessage, command) {
-    command = embedify(command);
-    receivedMessage.channel.send(`Too many arguments supplied. Try ${command}`);
+function noArgumentsUsedExample(receivedMessage, example) {
+    receivedMessage.channel.send(embedify(`Too many arguments supplied. Try ${example}`));
 }
 
 function busParseTime(arr) {
