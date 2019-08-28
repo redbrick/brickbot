@@ -40,7 +40,7 @@ function processCommand(receivedMessage) {
             commands.coinflip.coinflipCommand(bot, args, receivedMessage);
             break;
         case "isitup":
-            commands.isitup.isItUpCommand(bot, args, receivedMessage);
+            commands.isitup.isitupCommand(bot, args, receivedMessage);
             break;
         case "luas":
             commands.luas.luasCommand(bot, args, receivedMessage);
