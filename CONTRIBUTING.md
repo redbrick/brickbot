@@ -8,7 +8,7 @@ It's kind of tough to work on this in regards to development. So there's one of 
 
 ### As a non-Redbrick member
 
-If you aren't a Redbrick member you're obviously still welcome to help out! It's probably easiest for you to work on this by [setting up your own Discord server](https://www.howtogeek.com/364075/how-to-create-set-up-and-manage-your-discord-server/). Once you've done that you'll need to [create a bot account](https://discordpy.readthedocs.io/en/latest/discord.html). This involves in creating a token for your bot, the brickbot code specifies this token is found at `/tmp/brickbot.token` but you can change this to anywhere on your local machine for development purposes.
+If you aren't a Redbrick member you're obviously still welcome to help out! It's probably easiest for you to work on this by [setting up your own Discord server](https://www.howtogeek.com/364075/how-to-create-set-up-and-manage-your-discord-server/). Once you've done that you'll need to [create a bot account](https://discordpy.readthedocs.io/en/latest/discord.html). This involves creating a token for your bot. The brickbot code specifies that this token is found at `/tmp/brickbot.token` but you can change this to anywhere on your local machine for development purposes.
 
 ---
 
