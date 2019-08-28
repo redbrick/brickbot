@@ -4,7 +4,7 @@ It's kind of tough to work on this in regards to development. So there's one of 
 
 ### As a Redbrick member
 
- If you're a member of Redbrick (and I can check if you actually are) then I suggest getting in touch privatley and I'll sort you out in regards to development where brickbot is hosted from. 
+ If you're a member of Redbrick (and I can check if you actually are) then I suggest getting in touch privately and I'll sort you out in regards to development where brickbot is hosted from. 
 
 ### As a non-Redbrick member
 
