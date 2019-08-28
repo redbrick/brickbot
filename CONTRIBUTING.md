@@ -36,7 +36,7 @@ If you don't want to run on bare-metal, then Docker is your friend and there's a
 
 Let's say you have a command you want to add, well this is the section which clarifies how you go about doing that.
 
-All the code for the commands are hosted at faas.jamesmcdermott.ie as function found on http endpoints. You can this one out with just `curl`, it should return a link to a random page of the Redrbick wiki:
+All the code for the commands is hosted at faas.jamesmcdermott.ie as a cluster of serverless functions. Each one of these functions can be found on a given http endpoint. You can try this one out with just `curl`, it should return a link to a random page on the Redbrick wiki:
 
 > curl faas.jamesmcdermott.ie/function/wiki
 
