@@ -6,7 +6,7 @@ A simple bot for the new [Redbrick](https://github.com/redbrick) Discord.
 
 ### How it works
 
-brickbot is very simple. brickbot is a single JavaScript file which runs as a systemd service, and all it needs to do is make HTTP Requests to functions I run using [OpenFaaS](https://github.com/openfaas/faas). This means that no matter what your preferred language is, you're able to extend the functionality of brickbot. All I need to do is take your code, and add it to my Docker Swarm. 
+brickbot is very simple. brickbot is just some Node.js which runs as a systemd service, and all it needs to do is make HTTP requests to functions I run using [OpenFaaS](https://github.com/openfaas/faas). This means that no matter what your preferred language is, you're able to extend the functionality of brickbot. All I need to do is take your code, and add it to my Docker Swarm. 
 
 If you're interested in OpenFaaS I really recommend trying it out. Serverless is something worth learning (in my opinion), it's really started to change how I write code. There's some great articles out there on it but I personally found [this one](https://medium.com/@thomas.shaw78/bash-functions-as-a-service-b4033bc1ee97) to be the most helpful.
 
@@ -27,6 +27,8 @@ If you're implementing functionality:
 - ensure your PR has a link to the code you want deployed with OpenFaaS (I'll make sure it is deployed)
 - add your command to the function list in `get_test_set_one` ([in this file](https://github.com/theycallmemac/brickbot/blob/master/tests/endpoints.py)) along with it's expected result of 0 to it's respective list
 - add the command and it's creator to the list of functions below
+
+For a more comprehensive guide to contributing to brickbot's functionality [check this out](https://github.com/theycallmemac/brickbot/blob/master/CONTRIBUTING.md).
 
 ### Current Functions
 

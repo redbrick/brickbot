@@ -3,7 +3,7 @@ Description=brickbot
 After=multi-user.target
 
 [Service]
-ExecStart=/usr/bin/node /home/brickbot/brickbot/bot.js
+ExecStart=/usr/bin/node /home/bots/brickbot/bot.js
 Restart=always
 RestartSec=15
 RestartPreventExitStatus=0
