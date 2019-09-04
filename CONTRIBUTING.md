@@ -57,5 +57,4 @@ Once this part is done it's pretty trivial. Let's run through an example of addi
 
 ### Adding to my OpenFaaS functions
 
-If you want to write some configs to be added to the instance of OpenFaaS I'm running, you can make a PR (here)
-[https://github.com/theycallmemac/brickbot-faas].
+If you want to write some configs to be added to the instance of OpenFaaS I'm running, you can make a PR [here](https://github.com/theycallmemac/brickbot-faas).
