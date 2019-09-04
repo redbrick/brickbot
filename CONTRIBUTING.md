@@ -54,3 +54,8 @@ Once this part is done it's pretty trivial. Let's run through an example of addi
 6. Once it's all done, make sure to add your command to the big switch statement in `bot.js`, otherwise all your work wont ever get evaluated! While doing this make sure you also add a like help section to the switch statement in `commands/help.js`.
 7. Add your command to the function list in `get_test_set_one` ([in this file](https://github.com/theycallmemac/brickbot/blob/master/tests/endpoints.py)) along with it's expected result of 0 to it's respective list.
 8. Add the command and it's creator to the list of functions in the `README.md` file.
+
+### Adding to my OpenFaaS functions
+
+If you want to write some configs to be added to the instance of OpenFaaS I'm running, you can make a PR [here]
+(https://github.com/theycallmemac/brickbot-faas)
