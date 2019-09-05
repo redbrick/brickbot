@@ -1,6 +1,8 @@
 # brickbot
 
-![brickbot logo](https://github.com/theycallmemac/brickbot/blob/master/brickbot-logo.png?raw=true)
+<div style="text-align:center">
+  <img src="https://github.com/theycallmemac/brickbot/blob/master/brickbot-logo.png?raw=true"/>
+</div>
 
 [![CircleCI](https://circleci.com/gh/theycallmemac/brickbot.svg?style=svg)](https://circleci.com/gh/theycallmemac/brickbot)
 
