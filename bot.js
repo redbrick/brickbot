@@ -63,6 +63,9 @@ function processCommand(receivedMessage) {
         case "uptime":
             commands.uptime.uptimeCommand(bot, args, receivedMessage);
             break;
+        case "weather":
+            commands.weather.command(bot, args, receivedMessage);
+            break;
         case "wiki":
             commands.wiki.wikiCommand(bot, args, receivedMessage);
             break;

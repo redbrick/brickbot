@@ -36,6 +36,9 @@ module.exports = {
                 case "uptime":
                     receivedMessage.channel.send(helpers.embedify(bot, "uptime - check the uptime of brickbot.\n\nExample '!uptime'"));
                     break;
+                case "weather":
+                    receivedMessage.channel.send(helpers.embedify(bot, "weather - check the weather forecast by location.\n\nExample '!weather DCU'"));
+                    break;
                 case "wiki":
                     receivedMessage.channel.send(helpers.embedify(bot, "wiki - return a random page from wiki.redbrick.dcu.ie.\n\nExample: '!wiki'"));
                     break;
