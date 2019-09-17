@@ -1,4 +1,28 @@
 import requests
+import ssl
+import socket
+def check_base_url():
+    response = requests.get("https://faas.jamesmcdermott.ie")
+    if response.status_code == 401:
+        print("Passed")
+    else:
+        print("Failed")
+
+def check_ssl_cert():
+    try:
+        hostname = 'faas.jamesmcdermott.ie'
+        ctx = ssl.create_default_context()
+        s = ctx.wrap_socket(socket.socket(), server_hostname=hostname)
+        s.connect((hostname, 443))
+        cert = s.getpeercert()
+        subject = dict(x[0] for x in cert['subject'])
+        issued_to = subject['commonName']
+        if issued_to == "faas.jamesmcdermott.ie":
+            print("Passed")
+        else:
+            print(Failed)
+    except ssl.CertificateError:
+        print("Failed")
 
 def get_test_set_one():
     functions = ["coinflip", "isitup", "transport", "nslookup", "pwgen", "certinfo", "haveibeenpwned", "wiki", "uptime", "dcurooms", "weather"]
@@ -37,6 +61,9 @@ def check_results(expected_results, actual_results):
         return "Passed"
 
 def main():
+    check_base_url()
+    check_ssl_cert()
+
     functions, expected_results = get_test_set_one()
     run_test_set(functions, expected_results)
     functions, expected_results = get_test_set_two()
