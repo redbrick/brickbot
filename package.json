@@ -1,7 +1,7 @@
 {
-  "name": "brickbot-stats",
+  "name": "brickbot",
   "version": "1.0.0",
-  "description": "A simple bot for the new Redbrick Discord, made extendible by OpenFaaS.",
+  "description": "A bot for the Redbrick Discord server, made extendible by OpenFaaS.",
   "main": "bot.js",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore --fix .",
@@ -21,7 +21,7 @@
     "fs": "^0.0.1-security",
     "request": "^2.88.0"
   },
-  "homepage": "https://github.com/theycallmemac/brickbot#readme",
+  "homepage": "github.com/theycallmemac/brickbot",
   "devDependencies": {
     "eslint": "^6.1.0"
   }
