@@ -39,6 +39,9 @@ function processCommand(receivedMessage) {
         case "coinflip":
             commands.coinflip.coinflipCommand(bot, args, receivedMessage);
             break;
+        case "info":
+            commands.info.infoCommand(bot, args, receivedMessage);
+            break;
         case "isitup":
             commands.isitup.isitupCommand(bot, args, receivedMessage);
             break;
