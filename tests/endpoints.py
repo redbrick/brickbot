@@ -25,8 +25,8 @@ def check_ssl_cert():
         print("Failed")
 
 def get_test_set_one():
-    functions = ["coinflip", "isitup", "transport", "nslookup", "pwgen", "certinfo", "haveibeenpwned", "wiki", "uptime", "dcurooms", "weather"]
-    expected_results = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    functions = ["coinflip", "isitup", "transport", "nslookup", "pwgen", "certinfo", "haveibeenpwned", "wiki", "uptime", "dcurooms", "weather", "info"]
+    expected_results = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     return functions, expected_results
 
 def get_test_set_two():
