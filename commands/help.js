@@ -12,6 +12,9 @@ module.exports = {
                 case "coinflip":
                     receivedMessage.channel.send(helpers.embedify(bot, "coinflip - toss a coin.\n\nExample: '!coinflip'"));
                     break;
+                case "info":
+                    receivedMessage.channel.send(helpers.embedify(bot, "info - show brickbot info.\n\nExample: '!info'"));
+                    break;
                 case "isitup":
                     receivedMessage.channel.send(helpers.embedify(bot, "isitup - check if a site is up or down.\n\nExample: '!isitup redbrick.dcu.ie'"));
                     break;
@@ -44,7 +47,7 @@ module.exports = {
                     break;
             }
         } else {
-            receivedMessage.channel.send(helpers.embedify(bot, "Here is the list of brickbot commands:\n • bus \n • coinflip\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • room\n • ssl\n • uptime\n • wiki\n • help\n"));
+            receivedMessage.channel.send(helpers.embedify(bot, "Here is the list of brickbot commands:\n • bus \n • coinflip\n • info\n • isitup\n • luas\n • nslookup\n • pwgen\n • pwned\n • room\n • ssl\n • uptime\n • wiki\n • help\n"));
         }
     }
 };
