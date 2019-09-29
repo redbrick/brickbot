@@ -4,7 +4,7 @@ var helpers = require("../helpers/helpers.js");
 module.exports = {
     sslCommand: function(bot, args, receivedMessage) {
         if (args.length == 0) {
-            helpers.argumentsUsedExample(receivedMessage, "ssl", "!ssl redbrick.dcu.ie");
+            helpers.argumentsUsedExample(bot, receivedMessage, "ssl", "!ssl redbrick.dcu.ie");
             return;
 	}
 	else if (args.length > 0) {

@@ -5,7 +5,7 @@ module.exports = {
     pwnedCommand: function(bot, args, receivedMessage) {
         var email = args;
 	if (args.length == 0) {
-            helpers.argumentsUsedExample(receivedMessage, "email", "!pwned bertie@redbrick.dcu.ie");
+            helpers.argumentsUsedExample(bot, receivedMessage, "email", "!pwned bertie@redbrick.dcu.ie");
             return;
 	} else if (args.length > 0) {
             request.post({
