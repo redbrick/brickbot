@@ -7,12 +7,12 @@ module.exports = {
             helpers.noArgumentsUsedExample(bot, receivedMessage, "!pwgen");
         }
         else if (args.length == 0) {
-     	    request.get({
+            request.get({
                 url:     "https://faas.jamesmcdermott.ie/function/pwgen",
-	    }, 
+            }, 
             function(error, response, body) {
                 receivedMessage.author.send(helpers.embedify(bot, "Generated Password: " + body));
-	    });
+            });
         }
     }
 };

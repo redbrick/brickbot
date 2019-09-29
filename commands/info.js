@@ -7,12 +7,12 @@ module.exports = {
             helpers.noArgumentsUsedExample(bot, receivedMessage, "!info");
         }
         else if (args.length == 0) {
-    	    request.get({
+            request.get({
                 url:     "https://faas.jamesmcdermott.ie/function/info",
-	    }, 
+            }, 
             function(error, response, body) {
                 receivedMessage.channel.send(helpers.embedify(bot, body));
-	    });
+            });
         }
     }
 };
