@@ -1,9 +1,9 @@
 module.exports = {
-    argumentsUsedExample: function (receivedMessage, required, example) {
-        return self.embedify(`No ${required} supplied. Try ${example}`);
+    argumentsUsedExample: function(bot, receivedMessage, required, example) {        
+        receivedMessage.channel.send(module.exports.embedify(bot, `No ${required} supplied. Try ${example}`));
     },
-    noArgumentsUsedExample: function(receivedMessage, example) {
-        return self.embedify(`Too many arguments supplied. Try ${example}`);
+    noArgumentsUsedExample: function(bot, receivedMessage, example) {
+	receivedMessage.channel.send(module.exports.embedify(bot, `Too many arguments supplied. Try ${example}`));
     },
     embedify: function(bot, contents) {
         return {embed: 

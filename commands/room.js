@@ -4,7 +4,7 @@ var helpers = require("../helpers/helpers.js");
 module.exports = {
     roomCommand: function(bot, args, receivedMessage) {
         if (args.length == 0) {
-            helpers.argumentsUsedExample(receivedMessage, "room", "!room GLA.LG26");
+            helpers.argumentsUsedExample(bot, receivedMessage, "room", "!room GLA.LG26");
             return;
 	}
 	else if (args.length > 0) {

@@ -4,7 +4,7 @@ var helpers = require("../helpers/helpers.js");
 module.exports = {
     busCommand: function (bot, args, receivedMessage) {
         if (args.length == 0) {
-            helpers.argumentsUsedExample(receivedMessage, "stop", "!bus 7571");
+            helpers.argumentsUsedExample(bot, receivedMessage, "stop", "!bus 7571");
             return;
         }
         else if (args.length > 0) {

@@ -4,7 +4,7 @@ var helpers = require("../helpers/helpers.js");
 module.exports = {
     coinflipCommand: function (bot, args, receivedMessage) {
         if (args.length > 0) {
-            helpers.noArgumentsUsedExample(receivedMessage, "!coinflip");
+            helpers.noArgumentsUsedExample(bot, receivedMessage, "!coinflip");
         }
         else if (args.length == 0) {
             request.get({

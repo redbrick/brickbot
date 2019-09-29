@@ -4,7 +4,7 @@ var helpers = require("../helpers/helpers.js");
 module.exports = {
     command: function(bot, args, receivedMessage) {
 	if (args.length == 0) {
-            helpers.argumentsUsedExample(receivedMessage, "location", "!weather Glasnevin");
+            helpers.argumentsUsedExample(bot, receivedMessage, "location", "!weather Glasnevin");
             return;
 	} else if (args.length > 0) {
             request.post({

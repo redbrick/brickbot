@@ -4,7 +4,7 @@ var helpers = require("../helpers/helpers.js");
 module.exports = {
     luasCommand: function(bot, args, receivedMessage) {
         if (args.length == 0) {
-            helpers.argumentsUsedExample(receivedMessage, "stop", "!luas harcourt");
+            helpers.argumentsUsedExample(bot, receivedMessage, "stop", "!luas harcourt");
             return;
         }
         else if (args.length > 0) {
