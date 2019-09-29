@@ -2,7 +2,7 @@ var Discord = require("discord.js");
 var fs = require("fs");
 
 var path = require("path");
-var __dirname = path.resolve() + "/home/bots/brickbot/commands";
+var __dirname = "/home/brickbot/brickbot/commands";
 fs.readdirSync(__dirname).forEach(function (file) {
   module.exports[path.basename(file, ".js")] = require(path.join(__dirname, file));
 });
@@ -57,6 +57,9 @@ function processCommand(receivedMessage) {
         case "pwned":
             commands.pwned.pwnedCommand(bot, args, receivedMessage);
             break;
+	case "register":
+            commands.register.registerCommand(bot, args, receivedMessage);
+            break;
         case "room":
             commands.room.roomCommand(bot, args, receivedMessage);
             break;
@@ -65,6 +68,9 @@ function processCommand(receivedMessage) {
             break;
         case "uptime":
             commands.uptime.uptimeCommand(bot, args, receivedMessage);
+            break;
+        case "verify":
+            commands.verify.verifyCommand(bot, args, receivedMessage);
             break;
         case "weather":
             commands.weather.command(bot, args, receivedMessage);
