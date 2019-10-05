@@ -4,4 +4,4 @@ services:
     container_name: brickbot
     build: .
     volumes: 
-      - /tmp/brickbot.token:/tmp/brickbot.token
+      - /etc/brickbot.token:/etc/brickbot.token
