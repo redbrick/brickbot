@@ -3,6 +3,7 @@ var fs = require("fs");
 
 var path = require("path");
 var __dirname = "/home/brickbot/brickbot/commands";
+
 fs.readdirSync(__dirname).forEach(function (file) {
   module.exports[path.basename(file, ".js")] = require(path.join(__dirname, file));
 });
@@ -83,5 +84,5 @@ function processCommand(receivedMessage) {
     }
 }
 
-var bot_secret_token = fs.readFileSync("/tmp/brickbot.token", "utf-8").replace(/\n$/, "");
+var bot_secret_token = fs.readFileSync("/etc/brickbot.token", "utf-8").replace(/\n$/, "");
 bot.login(bot_secret_token);
