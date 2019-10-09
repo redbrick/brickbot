@@ -3,10 +3,10 @@ module.exports = {
         receivedMessage.channel.send(module.exports.embedify(bot, `No ${required} supplied. Try ${example}`));
     },
     noArgumentsUsedExample: function(bot, receivedMessage, example) {
-	receivedMessage.channel.send(module.exports.embedify(bot, `Too many arguments supplied. Try ${example}`));
+        receivedMessage.channel.send(module.exports.embedify(bot, `Too many arguments supplied. Try ${example}`));
     },
     embedify: function(bot, contents) {
-        return {embed: 
+	return {embed: 
             {
                 color: 0xAA0202,
                 author: {
@@ -20,6 +20,6 @@ module.exports = {
                     text: "© Redbrick"
                 }
             }
-        };
+	};
     }
 };
