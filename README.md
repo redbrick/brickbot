@@ -10,13 +10,13 @@ A simple bot for the new [Redbrick](https://github.com/redbrick) Discord.
 
 ### How it works
 
-brickbot is very simple. brickbot is just some Node.js which runs as a systemd service, and all it needs to do is make HTTP requests to functions I run using [OpenFaaS](https://github.com/openfaas/faas). This means that no matter what your preferred language is, you're able to extend the functionality of brickbot. All I need to do is take your code, and add it to my Docker Swarm. 
+brickbot is very simple. brickbot is just some Node.js which runs as a systemd service, and all it needs to do is make HTTP requests to functions we run using [OpenFaaS](https://github.com/openfaas/faas). This means that no matter what your preferred language is, you're able to extend the functionality of brickbot. All we need to do is take your code, and add it to our Docker Swarm. 
 
-If you're interested in OpenFaaS I really recommend trying it out. Serverless is something worth learning (in my opinion), it's really started to change how I write code. There's some great articles out there on it but I personally found [this one](https://medium.com/@thomas.shaw78/bash-functions-as-a-service-b4033bc1ee97) to be the most helpful.
+If you're interested in OpenFaaS we really recommend trying it out. Serverless is something worth learning (in our opinion), it's really started to change how we write code. There's some great articles out there on it but we personally found [this one](https://medium.com/@thomas.shaw78/bash-functions-as-a-service-b4033bc1ee97) to be the most helpful.
 
 ### Contributing
 
-Like I said, it's really easy to extend brickbot. You can help make this bot better by either:
+Like we said, it's really easy to extend brickbot. You can help make this bot better by either:
 
 1. suggesting new functionality
 2. implementing new functionality
