@@ -4,7 +4,7 @@
   <img width="460" height="300" src="https://github.com/theycallmemac/brickbot/blob/master/brickbot-logo.png?raw=true"/>
 </p>
 
-[![CircleCI](https://circleci.com/gh/theycallmemac/brickbot.svg?style=svg)](https://circleci.com/gh/theycallmemac/brickbot)
+[![CircleCI](https://circleci.com/gh/redbrick/brickbot.svg?style=svg)](https://circleci.com/gh/theycallmemac/brickbot)
 
 A simple bot for the new [Redbrick](https://github.com/redbrick) Discord.
 
