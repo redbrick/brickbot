@@ -20,7 +20,7 @@ module.exports = {
                     var timeTo = busGetTimeTo(parsed[0], parsed[1], parsed[2], parsed[3]);
                     schedule += (buses[n].MonitoredVehicleJourney_PublishedLineName + " (" + buses[n].MonitoredVehicleJourney_DestinationName + ") - " + timeTo + "\n");
                 }
-                receivedMessage.channel.send(helpers.embedify(bot, schedule));
+                receivedMessage.author.send(helpers.embedify(bot, schedule));
             });
         } 
     },
