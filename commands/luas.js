@@ -14,7 +14,7 @@ module.exports = {
             },
             function(error, response, body) {
                 var schedule = luasScheduleBuilder(body);
-		receivedMessage.channel.send(helpers.embedify(bot, schedule));
+		receivedMessage.author.send(helpers.embedify(bot, schedule));
             });
 	}
     }
