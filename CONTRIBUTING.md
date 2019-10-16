@@ -4,7 +4,7 @@ It's kind of tough to work on this in regards to development. So there's one of 
 
 ### As a Redbrick member
 
- If you're a member of Redbrick (and I will check if you actually are) then I suggest getting in touch privately and I'll sort you out in regards to development where brickbot is hosted from. 
+ If you're a member of Redbrick (and We will check if you actually are) then We suggest getting in touch privately and We'll sort you out in regards to development where brickbot is hosted from. 
 
 ### As a non-Redbrick member
 
@@ -40,9 +40,9 @@ All the code for the commands is hosted at 'faas.jamesmcdermott.ie' as a cluster
 
 > curl faas.jamesmcdermott.ie/function/wiki
 
-As said in the README, you can write this in any language! The hosted wiki command is written in Python, the hosted 'isitup' command is written in Bash, and the 'bus' and 'luas' commands actually use a Node.js api to query, which is a little anti-serverless, but also not really. I'm digressing. No matter what language you prefer, it can be used to extend brickbot functionality!
+As said in the README, you can write this in any language! The hosted wiki command is written in Python, the hosted 'isitup' command is written in Bash, and the 'bus' and 'luas' commands actually use a Node.js api to query, which is a little anti-serverless, but also not really. We're digressing. No matter what language you prefer, it can be used to extend brickbot functionality!
 
-So, let's say you have code, in a repo or a gist for example, all you need to do is tell me where that code lives. I'll take care of it from there, I just need the location. 
+So, let's say you have code, in a repo or a gist for example, all you need to do is tell me where that code lives. We'll take care of it from there, we'll just need the location. 
 
 Once this part is done it's pretty trivial. Let's run through an example of adding a command called "coinflip".
 
@@ -51,10 +51,10 @@ Once this part is done it's pretty trivial. Let's run through an example of addi
 3. Based on the response you get back from the function, add your logic to handle it. there's a function called `receivedMessage.channel.send()` that is used to send your finalised output back to the channel.
 4. If you need to write any command specific helper functions, you can just add them outside of `module.exports` in the same file.
 5. If you need to write a non specific help function, you can add it to `helpers/helpers/js`.
-6. Once it's all done, make sure to add your command to the big switch statement in `bot.js`, otherwise all your work won't  get evaluated! While doing this make sure you also add a like help section to the switch statement in `commands/help.js`.
+6. Once it's all done, make sure to add your command to the big switch statement in `bot.js`, otherwise all your work won't get evaluated! While doing this make sure you also add a like help section to the switch statement in `commands/help.js`.
 7. Add your command to the function list in `get_test_set_one` ([in this file](https://github.com/theycallmemac/brickbot/blob/master/tests/endpoints.py)) along with it's expected result of 0 to its respective list.
 8. Add the command and its creator to the list of functions in the `README.md` file.
 
 ### Adding to my OpenFaaS functions
 
-If you want some configs to be added to the instance of OpenFaaS I'm running, you can make a PR [here](https://github.com/theycallmemac/brickbot-faas).
+If you want some configs to be added to the instance of OpenFaaS We're running, you can make a PR [here](https://github.com/theycallmemac/brickbot-faas).
