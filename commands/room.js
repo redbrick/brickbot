@@ -13,7 +13,11 @@ module.exports = {
                 body:    args
             },
             function(error, response, body) {
-                receivedMessage.channel.send(helpers.embedify(bot, body));
+                if (error) {
+		    receivedMessage.channel.send(helpers.embedify(bot, "Couldn't retrieve information"));
+                } else {
+		    receivedMessage.channel.send(helpers.embedify(bot, body));
+		}
             });
 	}
     }
