@@ -9,7 +9,7 @@ module.exports = {
 	}
 	else if (args.length > 0) {
             request.post({
-                url:     "https://brickbot.seanfradl.com/timetable",
+                url:     "https://brickbot.seanfradl.com/timetable/",
                 body:    args
             },
             function(error, response, body) {
