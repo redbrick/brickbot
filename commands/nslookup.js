@@ -9,8 +9,8 @@ module.exports = {
 	}
 	else if (args.length > 0) {
             request.post({
-                url:     "https://faas.jamesmcdermott.ie/function/nslookup",
-                body:    args
+                url:     "https://faas.jamesmcdermott.ie/function/bash-collection",
+                body:    "-f nslookup.sh -a " + args
             },
             function(error, response, body) {
                 receivedMessage.channel.send(helpers.embedify(bot, body));

@@ -9,8 +9,8 @@ module.exports = {
 	}
 	else if (args.length > 0) {
             request.post({
-                url:     "https://faas.jamesmcdermott.ie/function/certinfo",
-                body:    args
+                url:     "https://faas.jamesmcdermott.ie/function/go-collection",
+                body:    "-f ssl -a " + args
             },
             function(error, response, body) {
                 receivedMessage.channel.send(helpers.embedify(bot, body));

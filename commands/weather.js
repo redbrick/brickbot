@@ -8,8 +8,8 @@ module.exports = {
             return;
 	} else if (args.length > 0) {
             request.post({
-                url:     "https://faas.jamesmcdermott.ie/function/weather",
-                body:    args
+                url:     "https://faas.jamesmcdermott.ie/function/bash-collection",
+                body:    "-f weather.sh -a " + args
             },
             function(error, response, body) {
                 receivedMessage.channel.send(helpers.embedify(bot, body));
