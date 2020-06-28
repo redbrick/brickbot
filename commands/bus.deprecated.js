@@ -59,5 +59,5 @@ function busGetTimeTo(hr, h, min, m) {
 }
 
 module.exports = {
-    busCommand: function() {  }
+    busCommand
 };

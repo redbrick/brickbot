@@ -18,43 +18,65 @@ Clone the project with:
 
 > git clone https://github.com/theycallmemac/brickbot.git
 
-From here you can install the dependencies (don't worry there aren't many) like so:
+Next you should install the dependencies using:
 
-> yarn
+> yarn install
 
-You can run the bot by using:
+the bot can be ran locally using
 
 > node bot.js
 
-You can also run it as a systemd service if you want, checkout the `brickbot.service` file and make changes where appropriate.
+If you're doing development - it would be possible to also use `nodemon`, this will watch your fs for changes to the codebase and automatically start the bot
 
-If you don't want to run on bare-metal, then Docker is your friend and there's docker-compose to utilise by running:
+### Environment variables
 
-> docker-compose up -d
- 
-### Getting your command into production
+Starting the bot requires some environment variables to be set, to get started, it's best to copy the `.env.sample` to `.env` and modify from there
 
-Let's say you have a command you want to add, well this is the section which clarifies how you go about doing that.
+> `cp .env.sample .env`
 
-All the code for the commands is hosted at 'faas.jamesmcdermott.ie' as a cluster of serverless functions. Each one of these functions can be found on a given http endpoint. You can try this one out with just `curl`, it should return a link to a random page on the Redbrick wiki:
+The only mandatory variables are, and should only ever be, `DISCORD_SECRET` or `DISCORD_SECRET_FILE`, all other vars should fail softly in their given commands
 
-> curl faas.jamesmcdermott.ie/function/wiki
 
-As said in the README, you can write this in any language! The hosted wiki command is written in Python, the hosted 'isitup' command is written in Bash, and the 'bus' and 'luas' commands actually use a Node.js api to query, which is a little anti-serverless, but also not really. We're digressing. No matter what language you prefer, it can be used to extend brickbot functionality!
+### The anatomy of a command:
 
-So, let's say you have code, in a repo or a gist for example, all you need to do is tell me where that code lives. We'll take care of it from there, we'll just need the location. 
+For an update version see `Command.js`
 
-Once this part is done it's pretty trivial. Let's run through an example of adding a command called "coinflip".
+This is the base version of a command:
 
-1. Add a `coinflip.js` file in the `commands` directory where the function is inside `module.exports`. There's a few examples of this.
-2. Your command needs to make http request to the endpoint at which the code is hosted, in this case it's at `faas.jamesmcdermott.ie/function/coinflip`.
-3. Based on the response you get back from the function, add your logic to handle it. there's a function called `receivedMessage.channel.send()` that is used to send your finalised output back to the channel.
-4. If you need to write any command specific helper functions, you can just add them outside of `module.exports` in the same file.
-5. If you need to write a non specific help function, you can add it to `helpers/helpers/js`.
-6. Once it's all done, make sure to add your command to the big switch statement in `bot.js`, otherwise all your work won't get evaluated! While doing this make sure you also add a like help section to the switch statement in `commands/help.js`.
-7. Add your command to the function list in `get_test_set_one` ([in this file](https://github.com/theycallmemac/brickbot/blob/master/tests/endpoints.py)) along with it's expected result of 0 to its respective list.
-8. Add the command and its creator to the list of functions in the `README.md` file.
+```js
+class Command {
+    constructor(bot, opts) {
+        this.bot = bot;
+        this.opts = {
+            args: {
+                required: 0,
+                optional: 0
+            },
+            help: {
+                blurb:   "Command placeholder",
+                example: "!command"
+            },
+            name: "command",
+            ...opts
+        };
+    }
 
-### Adding to my OpenFaaS functions
+    initCommand() {
+        // Connect to service, create database, etc.
+        return true;
+    }
 
-If you want some configs to be added to the instance of OpenFaaS We're running, you can make a PR [here](https://github.com/theycallmemac/brickbot-faas).
+    execute() {
+        return helpers.embedify(
+            this.bot,
+            "Some command output"
+        );
+    }
+}
+```
+
+Any services that a command uses should be connected to in the `initCommand` function. The command should return true if the services are available and connection succeeds, and false if not.
+
+If a service becomes unreachable, the command response should reflect this. All commands shall have their status checked periodically, if a command depends on a services it should use the `ServiceConsumerCommand`, which will have a flag for failing connections. these commands shall be reinitialized on a scaling interval of no less than 30 seconds, and no more than daily 
+
+Services consumed by brickbot should be soft failures and self healing to minimize downtime.
