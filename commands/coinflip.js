@@ -1,18 +1,23 @@
-var request = require("request");
-var helpers = require("../helpers/helpers.js");
+const helpers = require("../helpers/helpers.js");
+const Command = require("../Command");
 
-module.exports = {
-    coinflipCommand: function (bot, args, receivedMessage) {
-        if (args.length > 0) {
-            helpers.noArgumentsUsedExample(bot, receivedMessage, "!coinflip");
-        }
-        else if (args.length == 0) {
-            request.get({
-                url:     "https://faas.jamesmcdermott.ie/function/coinflip",
-            }, 
-            function(error, response, body) {
-                receivedMessage.channel.send(helpers.embedify(bot, "Came up " + body));
-            });
-        }
+class CoinFlip extends Command {
+    constructor(bot) {
+        super(bot, {
+            help: {
+                blurb: "This command performs a coinflip in the cloud for all you indecisive people",
+                example: "!coinflip"
+            },
+            name: "coinflip"
+        });
     }
-};
+
+    execute() {
+        return helpers.embedify(
+            this.bot,
+            "Came up " + `${Math.random() >= 0.5 ? "heads" : "tails"}`
+        );
+    }
+}
+
+module.exports = (bot) => new CoinFlip(bot);

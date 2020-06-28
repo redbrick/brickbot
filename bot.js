@@ -1,25 +1,60 @@
-var Discord = require("discord.js");
-var fs = require("fs");
+const fs = require("fs");
+const path = require("path");
 
-var path = require("path");
-var __dirname = "/home/brickbot/brickbot/commands";
+const Discord = require("discord.js");
+const commandDir = `${__dirname}/commands`;
 
-fs.readdirSync(__dirname).forEach(function (file) {
-  module.exports[path.basename(file, ".js")] = require(path.join(__dirname, file));
+const {
+    argumentsUsedExample,
+    embedify,
+    tooManyArgs
+} = require("./helpers/helpers.js");
+
+require("dotenv").config();
+
+const bot = new Discord.Client();
+let commands = {};
+
+fs.readdirSync(commandDir)
+    .filter(file => !(RegExp("deprecated", "gi")).test(file))
+    .forEach(function (file) {
+    let command = require(path.join(commandDir, file))(bot);
+    if(command.initCommand && command.initCommand()) {
+        commands[command.opts.name] = command;
+    }
 });
 
-var commands = module.exports;
-var helpers = require("./helpers/helpers.js");
-var bot = new Discord.Client();
-
 bot.on("message", (receivedMessage) => {
-    if (receivedMessage.author == bot.user) { 
+    if (receivedMessage.author === bot.user) {
         return;
     }
     if (receivedMessage.content.startsWith("!")) {
         processCommand(receivedMessage);
     }
 });
+
+function testAndExecute(command, args) {
+    const commandOpts = command.opts;
+    const {args: commandArgs} = commandOpts;
+    const {help: commandHelp} = commandOpts;
+
+    if (
+        args.length >= commandArgs.required &&
+        args.length <= commandArgs.required + commandArgs.optional
+    ) {
+        return command.execute();
+    }
+    else {
+        switch (false) {
+            case !args.length < commandArgs.required:
+                return argumentsUsedExample(bot, commandHelp);
+            case !args.length > commandArgs.require + commandArgs.optional:
+                return tooManyArgs(bot, commandHelp);
+            default:
+                return `command: ${commandOpts.name} - ${commandHelp.blurb}\nusage: ${commandOpts.help.example}`;
+        }
+    }
+}
 
 function processCommand(receivedMessage) {
     let fullCommand = receivedMessage.content.substr(1);
@@ -30,59 +65,26 @@ function processCommand(receivedMessage) {
     console.log("Command received: " + primaryCommand);
     console.log("args: " + args);
 
-    switch (primaryCommand) {
-        case "help":
-            commands.help.helpCommand(bot, args, receivedMessage);
-            break;
-        case "bus":
-            commands.bus.busCommand(bot, args, receivedMessage);
-            break;
-        case "coinflip":
-            commands.coinflip.coinflipCommand(bot, args, receivedMessage);
-            break;
-        case "info":
-            commands.info.infoCommand(bot, args, receivedMessage);
-            break;
-        case "isitup":
-            commands.isitup.isitupCommand(bot, args, receivedMessage);
-            break;
-        case "luas":
-            commands.luas.luasCommand(bot, args, receivedMessage);
-            break;
-        case "nslookup":
-            commands.nslookup.nslookupCommand(bot, args, receivedMessage);
-            break;
-        case "pwgen":
-            commands.pwgen.pwgenCommand(bot, args, receivedMessage);
-            break;
-        case "pwned":
-            commands.pwned.pwnedCommand(bot, args, receivedMessage);
-            break;
-	case "register":
-            commands.register.registerCommand(bot, args, receivedMessage);
-            break;
-        case "room":
-            commands.room.roomCommand(bot, args, receivedMessage);
-            break;
-        case "ssl":
-            commands.ssl.sslCommand(bot, args, receivedMessage);
-            break;
-        case "uptime":
-            commands.uptime.uptimeCommand(bot, args, receivedMessage);
-            break;
-        case "verify":
-            commands.verify.verifyCommand(bot, args, receivedMessage);
-            break;
-        case "weather":
-            commands.weather.command(bot, args, receivedMessage);
-            break;
-        case "wiki":
-            commands.wiki.wikiCommand(bot, args, receivedMessage);
-            break;
-        default:
-            receivedMessage.channel.send(helpers.embedify(bot, "I don't understand the command. Try `!help [command]`"));
+    const {channel} = receivedMessage;
+
+    console.log(commands[primaryCommand]);
+
+    if (commands[primaryCommand]) {
+        channel.send(testAndExecute(commands[primaryCommand], args));
+    }
+    else {
+        channel.send(
+            embedify(
+                bot,
+                `I don't understand the command.
+                    Try \`!help [command]\``
+            )
+        );
     }
 }
 
-var bot_secret_token = fs.readFileSync("/etc/brickbot.token", "utf-8").replace(/\n$/, "");
+const bot_secret_token = typeof process.env.DISCORD_SECRET_FILE !== "undefined"
+    ? fs.readFileSync(process.env.DISCORD_SECRET_FILE, "utf-8").replace(/\n$/, "")
+    : process.env.DISCORD_SECRET;
+
 bot.login(bot_secret_token);

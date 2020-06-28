@@ -4,10 +4,12 @@ var ldap = require("ldapjs");
 var helpers = require("../helpers/helpers.js");
 
 const ldapClient = ldap.createClient({
-  url: "ldap://ldap.internal"
+  url: process.env.LDAP_HOST
 });
 
-const ldapSecret = fs.readFileSync("/etc/ldap.secret", "utf-8");
+const ldapSecret = typeof process.env.LDAP_SECRET_FILE !== "undefined"
+    ? fs.readFileSync(process.env.LDAP_SECRET_FILE, "utf-8")
+    : process.env.LDAP_SECRET;
 
 module.exports = {
     verifyCommand: function(bot, args, receivedMessage) {

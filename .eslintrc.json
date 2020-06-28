@@ -6,6 +6,8 @@
     },
     "extends": "eslint:recommended",
     "globals": {
+        "__dirname": "readonly",
+        "process": "readonly",
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
@@ -13,6 +15,10 @@
         "ecmaVersion": 2018
     },
     "rules": {
+        "max-len": [
+            "error",
+            120
+        ],
         "linebreak-style": [
             "error",
             "unix"
