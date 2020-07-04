@@ -1,0 +1,15 @@
+[Unit]
+Description=brickbot
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/node /home/brickbot/brickbot/src/bot.js
+Restart=always
+RestartSec=15
+RestartPreventExitStatus=0
+TimeoutStopSec=10
+User=brickbot
+Group=brickbot
+
+[Install]
+WantedBy=multi-user.target
