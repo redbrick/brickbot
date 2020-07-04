@@ -20,4 +20,4 @@ class CoinFlip extends Command {
     }
 }
 
-module.exports = (bot) => new CoinFlip(bot);
+module.exports = CoinFlip;

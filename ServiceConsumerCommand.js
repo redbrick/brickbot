@@ -25,7 +25,9 @@ class ServiceConsumerCommand extends Command {
     initCommand() {
         // Connect to service, create database, etc.
         this.opts.service.retries++;
-        this.opts.service.timeout = this.opts.service.timeout * 2;
+        this.opts.service.timeout = this.opts.service.timeout * 2 <= timeoutMax
+            ? this.opts.service.timeout * 2
+            : timeoutMax;
 
         // If successful please reset the timeout
         return true;

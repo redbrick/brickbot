@@ -3,17 +3,18 @@ function argumentsUsedExample(bot, receivedMessage, required, example) {
 }
 
 function embedify(bot, contents) {
+    const {client} = bot;
     return {
         embed: {
             color: 0xAA0202,
             author: {
-                name: bot.user.username,
-                icon_url: bot.user.avatarURL
+                name: client.user.username,
+                icon_url: client.user.avatarURL
             },
             description: contents,
             timestamp: new Date(),
             footer: {
-                icon_url: bot.user.avatarURL,
+                icon_url: client.user.avatarURL,
                 text: "© Redbrick"
             }
         }
@@ -21,7 +22,7 @@ function embedify(bot, contents) {
 }
 
 function tooManyArgs(bot, example) {
-    return embedify(bot, `Too many arguments supplied. Try ${example}`);
+    return embedify(bot, `Too many arguments supplied, try:\n\`${example}\``);
 }
 
 module.exports = {
