@@ -3,7 +3,7 @@ var ldap = require("ldapjs");
 
 var helpers = require("../helpers/helpers.js");
 
-const ldapClient = ldap.createClient({
+const ldapdiscordClient = ldap.creatediscordClient({
   url: process.env.LDAP_HOST
 });
 
@@ -23,7 +23,7 @@ module.exports = {
             filter: (`uid=${args[0]}`)
         };
 
-        ldapClient.bind("cn=root,ou=ldap,o=redbrick", ldapSecret, function(err) {
+        ldapdiscordClient.bind("cn=root,ou=ldap,o=redbrick", ldapSecret, function(err) {
             if (err) {
                 receivedMessage.channel.send(
                     helpers.embedify(
@@ -32,7 +32,7 @@ module.exports = {
                     )
                 );
             } else {
-                ldapClient.search("o=redbrick", searchOptions, function(error, result) {
+                ldapdiscordClient.search("o=redbrick", searchOptions, function(error, result) {
                     result.on("searchEntry", function(entry) {
                         if (entry.object.altmail == args[1]) {
                             const serverNumber = fs.readFileSync(

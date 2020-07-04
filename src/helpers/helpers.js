@@ -3,18 +3,18 @@ function argumentsUsedExample(bot, receivedMessage, required, example) {
 }
 
 function embedify(bot, contents) {
-    const {client} = bot;
+    const {discordClient} = bot;
     return {
         embed: {
             color: 0xAA0202,
             author: {
-                name: client.user.username,
-                icon_url: client.user.avatarURL
+                name: discordClient.user.username,
+                icon_url: discordClient.user.avatarURL
             },
             description: contents,
             timestamp: new Date(),
             footer: {
-                icon_url: client.user.avatarURL,
+                icon_url: discordClient.user.avatarURL,
                 text: "© Redbrick"
             }
         }

@@ -12,6 +12,7 @@ class Command {
                 blurb:   "Command placeholder",
                 example: "!command"
             },
+            isDM: false,
             name: "command",
             ...opts
         };

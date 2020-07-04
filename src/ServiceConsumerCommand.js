@@ -1,4 +1,4 @@
-const Command = require("Command");
+const Command = require("src/Command");
 const helpers = require("./helpers/helpers");
 
 const timeoutMax = 86400;

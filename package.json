@@ -1,11 +1,11 @@
 {
   "name": "brickbot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A bot for the Redbrick Discord server, made extendible by OpenFaaS.",
-  "main": "bot.js",
+  "main": "src/bot.js",
   "scripts": {
-    "lint": "npx eslint --ignore-path .gitignore --fix .",
-    "start": "echo '> Running brickbot ...' && node bot.js"
+    "lint": "npx eslint --ignore-path .gitignore --fix src/.",
+    "start": "echo '> Running brickbot ...' && node src/bot.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,9 @@
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
     "fs": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
     "ldapjs": "^1.0.2",
+    "nodemailer": "^6.4.10",
     "request": "^2.88.0"
   },
   "homepage": "github.com/redbrick/brickbot",
