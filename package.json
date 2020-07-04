@@ -4,17 +4,17 @@
   "description": "A bot for the Redbrick Discord server, made extendible by OpenFaaS.",
   "main": "bot.js",
   "scripts": {
-    "lint": "eslint --ignore-path .gitignore --fix .",
+    "lint": "npx eslint --ignore-path .gitignore --fix .",
     "start": "echo '> Running brickbot ...' && node bot.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/theycallmemac/brickbot.git"
+    "url": "git+https://github.com/redbrick/brickbot.git"
   },
-  "author": "James McDermott (theycallmemac)",
+  "author": "Redbrick DCU",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/theycallmemac/brickbot/issues"
+    "url": "https://github.com/redbrick/brickbot/issues"
   },
   "dependencies": {
     "discord.js": "^11.5.1",
@@ -23,7 +23,7 @@
     "ldapjs": "^1.0.2",
     "request": "^2.88.0"
   },
-  "homepage": "github.com/theycallmemac/brickbot",
+  "homepage": "github.com/redbrick/brickbot",
   "devDependencies": {
     "eslint": "^6.1.0"
   }
