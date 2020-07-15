@@ -6,14 +6,13 @@ module.exports = {
         if (args.length > 0) {
             helpers.noArgumentsUsedExample(bot, receivedMessage, "!uptime");
             return;
-        }
-        else if (args.length == 0) {
+        } else if (args.length == 0) {
             request.post({
                 url:     "https://faas.jamesmcdermott.ie/function/uptime",
                 body:    String(bot.uptime / 1000)
             }, 
             function(error, response, body) {
-                receivedMessage.channel.send(helpers.embedify(bot, body));
+                receivedMessage.channel.send(Utils.embed(bot, body));
             });
 	}
     }

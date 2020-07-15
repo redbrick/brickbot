@@ -15,9 +15,9 @@ module.exports = {
             function(error, response, body) {
 		var n = JSON.parse(body).found;
 		if (n == 0) { 
-                    receivedMessage.channel.send(helpers.embedify(bot, email + " has not been pwned"));
+                    receivedMessage.channel.send(Utils.embed(bot, email + " has not been pwned"));
                 } else {
-                    receivedMessage.channel.send(helpers.embedify(bot, email + " has been pwned"));
+                    receivedMessage.channel.send(Utils.embed(bot, email + " has been pwned"));
                 }
             });
         } 

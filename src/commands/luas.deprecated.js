@@ -6,15 +6,14 @@ module.exports = {
         if (args.length == 0) {
             helpers.argumentsUsedExample(bot, receivedMessage, "stop", "!luas harcourt");
             return;
-        }
-        else if (args.length > 0) {
+        } else if (args.length > 0) {
             request.post({
                 url:     "https://faas.jamesmcdermott.ie/function/transport",
 		body:    "127.0.0.1:8000/luas/stop/" + args
             },
             function(error, response, body) {
                 var schedule = luasScheduleBuilder(body);
-		receivedMessage.author.send(helpers.embedify(bot, schedule));
+		receivedMessage.author.send(Utils.embed(bot, schedule));
             });
 	}
     }
