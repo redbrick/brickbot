@@ -1,7 +1,9 @@
-const helpers = require("../helpers/helpers.js");
+const {
+    Utils
+} = require("../helpers/helpers.js");
 const Command = require("../Command");
 
-class CoinFlip extends Command {
+class Register extends Command {
     constructor(bot) {
         super(bot, {
             help: {
@@ -14,14 +16,14 @@ class CoinFlip extends Command {
     }
 
     execute() {
-        return helpers.embedify(
+        return Utils.embed(
             this.bot,
             `To verify, run the following command:
             \`\`\`!verify <your-redbrick-username> <your-dcu-email-address>\`\`\`
             If you are not a member and would like to register, please run this instead
-            \`\`\`!signup <your-dcu-email-address>\`\`\` `
+            \`\`\`!signup <your-desired-redbrick-username> <your-dcu-email-address>\`\`\` `
         );
     }
 }
 
-module.exports = CoinFlip;
+module.exports = Register;

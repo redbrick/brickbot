@@ -6,12 +6,11 @@ module.exports = {
         if (args.length > 0) {
             helpers.noArgumentsUsedExample(bot, receivedMessage, "!wiki");
             return;
-	}
-	else if (args.length == 0) {
+	} else if (args.length == 0) {
             request.get({
                 url:     "https://faas.jamesmcdermott.ie/function/wiki",
             }, function(error, response, body) {
-                receivedMessage.channel.send(helpers.embedify(bot, body));
+                receivedMessage.channel.send(Utils.embed(bot, body));
             });
 	}   
     }

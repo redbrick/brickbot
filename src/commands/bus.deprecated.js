@@ -4,8 +4,7 @@ const helpers = require("../helpers/helpers.js");
 function busCommand (bot, args, receivedMessage) {
     if (args.length === 0) {
         helpers.argumentsUsedExample(bot, receivedMessage, "stop", "!bus 7571");
-    }
-    else if (args.length > 0) {
+    } else if (args.length > 0) {
         request.post({
             url:     "https://faas.jamesmcdermott.ie/function/transport",
             body:    "127.0.0.1:8000/bus/stop/" + args
@@ -28,7 +27,7 @@ function busCommand (bot, args, receivedMessage) {
                     `${LineName} (${DestinationName}) - ${timeTo}\n`;
             }
 
-            receivedMessage.author.send(helpers.embedify(bot, schedule))
+            receivedMessage.author.send(Utils.embed(bot, schedule))
                 .catch(err => console.trace(`Exception occurred in sending message ${err}`));
         });
     }

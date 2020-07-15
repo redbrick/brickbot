@@ -12,7 +12,7 @@ module.exports = {
                 body:    args
             },
             function(error, response, body) {
-                receivedMessage.channel.send(helpers.embedify(bot, body));
+                receivedMessage.channel.send(Utils.embed(bot, body));
             });
         } 
     }

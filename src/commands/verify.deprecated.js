@@ -26,7 +26,7 @@ module.exports = {
         ldapdiscordClient.bind("cn=root,ou=ldap,o=redbrick", ldapSecret, function(err) {
             if (err) {
                 receivedMessage.channel.send(
-                    helpers.embedify(
+                    Utils.embed(
                         bot,
                         "Could not connect to Redbrick LDAP server, please contact a member of Committee."
                     )
@@ -41,10 +41,10 @@ module.exports = {
                             ).replace(/\n$/, "");
                             const memberRole = fs.readFileSync("/etc/discord.member.role", "utf-8").replace(/\n$/, "");
                             bot.guilds.get(serverNumber).members.get(receivedMessage.author.id).addRole(memberRole);
-                            receivedMessage.channel.send(helpers.embedify(bot, "Verified!"));
+                            receivedMessage.channel.send(Utils.embed(bot, "Verified!"));
                         } else {
                             receivedMessage.channel.send(
-                                helpers.embedify(bot,"Username and Email Address do not match.")
+                                Utils.embed(bot,"Username and Email Address do not match.")
                             );
                         }
                     });

@@ -1,11 +1,15 @@
-const helpers = require("../helpers/helpers.js");
+const {
+    Utils
+} = require("../helpers/helpers.js");
 const Command = require("../Command");
 
 class Help extends Command {
     constructor(bot) {
         super(bot, {
             args: {
-                optional: 1
+                optional: [
+                    "command name"
+                ]
             },
             help: {
                 // eslint-disable-next-line max-len
@@ -32,13 +36,12 @@ class Help extends Command {
             if(command) {
                 const {name, help} = command.opts;
                 ret = `\`${name}\`: ${help.blurb}\n\n**Example**:\n\`\`\`${help.example}\`\`\``;
-            }
-            else {
+            } else {
                 ret = "command not found";
             }
         }
 
-        ret = helpers.embedify(
+        ret = Utils.embed(
             this.bot,
             ret
         );

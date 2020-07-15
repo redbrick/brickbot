@@ -1,21 +1,22 @@
-const helpers = require("./helpers/helpers.js");
+const {
+    Utils
+} = require("./helpers/helpers.js");
 
 class Command {
     constructor(bot, opts) {
         this.bot = bot;
-        this.opts = {
+        this.opts = Utils.mergeObj({
             args: {
-                required: 0,
-                optional: 0
+                required: [],
+                optional: []
             },
             help: {
                 blurb:   "Command placeholder",
                 example: "!command"
             },
             isDM: false,
-            name: "command",
-            ...opts
-        };
+            name: "command"
+        }, opts);
     }
 
     initCommand() {
@@ -24,7 +25,7 @@ class Command {
     }
 
     execute() {
-        return helpers.embedify(
+        return Utils.embed(
             this.bot,
             "Some command output"
         );

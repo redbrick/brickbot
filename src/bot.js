@@ -7,9 +7,8 @@ const JWT = require("jsonwebtoken");
 const NodeMailer = require("nodemailer");
 // Our libs
 const {
-    argumentsUsedExample,
-    embedify,
-    tooManyArgs
+    Utils,
+    Responses,
 } = require("./helpers/helpers.js");
 // Load .env file info into process.env
 //  will clobber anything set in the parent environment
@@ -23,13 +22,15 @@ const client_secret_token = typeof process.env.DISCORD_SECRET_FILE !== "undefine
 class Log {
     static error(str) {
         const dt = new Date();
-        process.env.debug
+        // eslint-disable-next-line no-extra-boolean-cast
+        Boolean(process.env.DEBUG)
             ? console.trace(`${dt.toLocaleDateString()}[${dt.toLocaleTimeString()}]: ${str}`)
             : console.trace(str);
     }
     static log(str) {
         const dt = new Date();
-        process.env.debug
+        // eslint-disable-next-line no-extra-boolean-cast
+        Boolean(process.env.DEBUG)
             ? console.info(`${dt.toLocaleDateString()}[${dt.toLocaleTimeString()}]: ${str}`)
             : console.info(str);
     }
@@ -45,8 +46,8 @@ class BrickBot {
             port: parseInt(process.env.MAIL_PORT, 10),
             secure: Boolean(process.env.MAIL_SECURE), // true for 465, false for other ports
             auth: {
-                user: process.env.MAIL_USER, // generated ethereal user
-                pass: process.env.MAIL_PASS, // generated ethereal password
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS,
             },
         });
         this.commands = {};
@@ -67,7 +68,10 @@ class BrickBot {
                 this.commands = commands;
             })
             .catch(err => Log.error(`Error reading command dir: ${err}`))
-            .finally(() => Log.log("Commands loaded"));
+            .finally(() => {
+                const cmds = Object.keys(this.commands).map(cmd => ` - ${cmd}\n`).join("");
+                Log.log(`Commands loaded:\n${cmds}`);
+            });
 
         const clientLoginPromise = this.discordClient.login(client_secret_token)
             .catch(err => Log.error(`Error logging into discord: ${err}`))
@@ -98,13 +102,19 @@ class BrickBot {
             return this.commands[primaryCommand].isDM
                 ? author.send(ret)
                 : channel.send(ret);
-        }
-        else {
+        } else {
+            // Command not found or successfully loaded
+            // TODO: [v2.1] - differentiate between:
+            //  - command failed to construct and init
+            //  - service dependancy
+            //    - is rate limit/black listing us
+            //    - is down
+            //  - command doesn't exist
+
             return channel.send(
-                embedify(
+                Utils.embed(
                     this,
-                    `I don't understand the command.
-                    Try \`!help [command]\``
+                    "I don't understand the command.\n\nTry:\n```!help```\nOr:\n```!help [command]```"
                 )
             );
         }
@@ -115,10 +125,10 @@ class BrickBot {
         const {args: commandArgs} = commandOpts;
         const {help: commandHelp} = commandOpts;
 
-        if (args.length < commandArgs.required)
-            return argumentsUsedExample(this, commandHelp);
-        else if (args.length > commandArgs.required + commandArgs.optional)
-            return tooManyArgs(this, commandHelp.example);
+        if (args.length < commandArgs.required.length)
+            return Responses.argumentsUsedExample(this, commandHelp, commandArgs.required, commandHelp.example);
+        else if (args.length > commandArgs.required.length + commandArgs.optional.length)
+            return Responses.tooManyArgs(this, commandHelp.example);
         else
             return command.execute(args);
     }

@@ -67,7 +67,7 @@ class Command {
     }
 
     execute() {
-        return helpers.embedify(
+        return Utils.embed(
             this.bot,
             "Some command output"
         );

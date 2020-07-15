@@ -1,5 +1,7 @@
 const Command = require("src/Command");
-const helpers = require("./helpers/helpers");
+const {
+    Utils
+} = require("./helpers/helpers");
 
 const timeoutMax = 86400;
 
@@ -34,7 +36,7 @@ class ServiceConsumerCommand extends Command {
     }
 
     execute() {
-        return helpers.embedify(
+        return Utils.embed(
             this.bot,
             "Some command output"
         );
