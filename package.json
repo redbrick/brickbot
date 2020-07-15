@@ -4,8 +4,9 @@
   "description": "A bot for the Redbrick Discord server, made extendible by OpenFaaS.",
   "main": "src/bot.js",
   "scripts": {
-    "lint": "npx eslint --ignore-path .gitignore --fix src/.",
-    "start": "echo '> Running brickbot ...' && node src/bot.js"
+    "lint": "npx eslint --fix src/.",
+    "start": "echo '> Running brickbot ...' && node src/bot.js",
+    "test": "npx eslint src/."
   },
   "repository": {
     "type": "git",
