@@ -23,17 +23,32 @@ class SignUp extends Command {
     }
 
     execute(args) {
+        const emailOrStudentID = args.pop();
         const username = args.pop();
-        Sanitize.username(username);
-        const email = args.pop();
-        Sanitize.email(email);
+
+        // Sanitize.username(username);
+        // Sanitize.emailOrStudentID(emailOrStudentID);
+
+        if(!Sanitize.username(username)) {
+            return Utils.embed(
+                this.bot,
+                "Username not valid: must be between 2 and 8 characters inclusive"
+                + `and only include alphanumeric characters '${username}'`
+            );
+        }
+
+        if(!Sanitize.emailOrStudentID(emailOrStudentID)) {
+            return Utils.embed(
+                this.bot,
+                Sanitize.studentID(emailOrStudentID)
+                    ? "Student ID not valid. Should be all numbers and longer than 2 digits"
+                    : "Email not valid: Should be a valid DCU email"
+            );
+        }
 
         return Utils.embed(
             this.bot,
-            `
-            \`\`\`!verify <your-redbrick-username> <your-dcu-email-address>\`\`\`
-            If you are not a member and would like to register, please run this instead
-            \`\`\`!signup <your-desired-redbrick-username> <your-dcu-email-address>\`\`\` `
+            "No: not yet"
         );
     }
 }

@@ -69,23 +69,50 @@ class Utils {
         args = args.concat(dest);
         return Utils.mergeObj(...args);
     }
+
+    static testAll(lst) {
+        return lst.reduce((l, r) => l && r, true);
+    }
 }
 
 class Responses {
     static tooManyArgs(bot, example) {
         return Utils.embed(bot, `Too many arguments supplied!\n\nTry:\n\`${example}\``);
     }
+
     static argumentsUsedExample(bot, receivedMessage, required, example) {
         return Utils.embed(bot, `No ${Utils.humanList(required, "or")} supplied! \n\nTry:\n\`${example}\``);
     }
 }
 
 class Sanitize {
-    static email() {
-
+    static email(candidate) {
+        // This will test for valid dcu student email in the expected form:
+        //  first.last123@mail.dcu.ie
+        //  first.last@mail.dcu.ie
+        let studentEmailRegExp = RegExp("[a-zA-Z]+\\.[a-zA-Z]+[0-9]+@mail\\.dcu\\.ie", "gi");
+        // This will test for a valid dcu other/staff email in expected form:
+        //  entity@dcu.ie
+        let staffEmailRegExp = RegExp(".+@(?:.+\\.)*dcu\\.ie", "gi");
+        // Other formats can be added the same way
+        return studentEmailRegExp.test(candidate)
+            || staffEmailRegExp.test(candidate);
     }
-    static username() {
 
+    static emailOrStudentID(candidate) {
+        return Sanitize.email(candidate)
+            || Sanitize.studentID(candidate);
+    }
+
+    static studentID(candidate) {
+        // Should be a little speed op but there is a chance I guess that this student IDs may some day be longer
+        const studentIDRegExp = RegExp("^[0-9]{2,32}$", "gi");
+        return studentIDRegExp.test(candidate);
+    }
+
+    static username(candidate) {
+        const usernameRegExp = RegExp("^[a-zA-Z0-9]{2,9}$", "gm");
+        return usernameRegExp.test(candidate);
     }
 }
 
