@@ -79,6 +79,13 @@ function processCommand(receivedMessage) {
         case "wiki":
             commands.wiki.wikiCommand(bot, args, receivedMessage);
             break;
+        case "cmt":
+            commands.cmt.cmtCommand(bot, args, receivedMessage);
+            break;
+        case "events":
+            commands.events.eventsCommand(bot, args, receivedMessage);
+            break;
+	
         default:
             receivedMessage.channel.send(helpers.embedify(bot, "I don't understand the command. Try `!help [command]`"));
     }
