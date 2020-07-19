@@ -9,8 +9,8 @@ module.exports = {
         }
         else if (args.length == 0) {
             request.post({
-                url:     "https://faas.jamesmcdermott.ie/function/uptime",
-                body:    String(bot.uptime / 1000)
+                url:     "https://faas.jamesmcdermott.ie/function/js-collection",
+                body:    "-f uptime -a " + String(bot.uptime / 1000)
             }, 
             function(error, response, body) {
                 receivedMessage.channel.send(helpers.embedify(bot, body));

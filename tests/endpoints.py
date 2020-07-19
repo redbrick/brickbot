@@ -25,12 +25,12 @@ def check_ssl_cert():
         print("Failed")
 
 def get_test_set_one():
-    functions = ["coinflip", "isitup", "transport", "nslookup", "pwgen", "certinfo", "haveibeenpwned", "wiki", "uptime", "dcurooms", "weather", "info"]
-    expected_results = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    functions = ["bash-collection", "go-collection", "js-collection", "python-collection"]
+    expected_results = [0, 0, 0, 0]
     return functions, expected_results
 
 def get_test_set_two():
-    functions = ["notacommand", "30-50_feral_hogs", "transport", "nslookup", "randomCommand", "pwgen", "haveibeenpwned", "wikipedia_command"]
+    functions = ["notacommand", "30-50_feral_hogs", "bash-collection", "python-collection", "randomCommand", "js-collection", "go-collection", "wikipedia_command"]
     expected_results = [1, 1, 0, 0, 1, 0, 0, 1]
     return functions, expected_results
 

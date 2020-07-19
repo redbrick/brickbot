@@ -9,7 +9,8 @@ module.exports = {
 	}
 	else if (args.length == 0) {
             request.get({
-                url:     "https://faas.jamesmcdermott.ie/function/wiki",
+                url:     "https://faas.jamesmcdermott.ie/function/python-collection",
+		body:    "-f wiki"
             }, function(error, response, body) {
                 receivedMessage.channel.send(helpers.embedify(bot, body));
             });

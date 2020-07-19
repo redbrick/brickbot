@@ -8,7 +8,8 @@ module.exports = {
         }
         else if (args.length == 0) {
             request.get({
-                url:     "https://faas.jamesmcdermott.ie/function/pwgen",
+                url:     "https://faas.jamesmcdermott.ie/function/bash-collection",
+                body:    "-f pwgen.sh"
             }, 
             function(error, response, body) {
                 receivedMessage.author.send(helpers.embedify(bot, "Generated Password: " + body));

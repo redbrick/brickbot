@@ -9,8 +9,8 @@ module.exports = {
 	}
 	else if (args.length > 0) {
             request.post({
-                url:     "https://faas.jamesmcdermott.ie/function/isitup",
-                body:    args
+                url:     "https://faas.jamesmcdermott.ie/function/bash-collection",
+                body:    "-f isitup.sh -a " + args
             },
             function(error, response, body) {
                 receivedMessage.channel.send(helpers.embedify(bot, body));

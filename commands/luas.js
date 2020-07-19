@@ -9,8 +9,8 @@ module.exports = {
         }
         else if (args.length > 0) {
             request.post({
-                url:     "https://faas.jamesmcdermott.ie/function/transport",
-		body:    "127.0.0.1:8000/luas/stop/" + args
+                url:     "https://faas.jamesmcdermott.ie/function/js-collection",
+		body:    "-f transport -a 'luas" + " " + args + "'"
             },
             function(error, response, body) {
                 var schedule = luasScheduleBuilder(body);

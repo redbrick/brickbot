@@ -8,7 +8,8 @@ module.exports = {
         }
         else if (args.length == 0) {
             request.get({
-                url:     "https://faas.jamesmcdermott.ie/function/coinflip",
+                url:     "https://faas.jamesmcdermott.ie/function/bash-collection",
+                body:    "-f coinflip.sh"
             }, 
             function(error, response, body) {
                 receivedMessage.channel.send(helpers.embedify(bot, "Came up " + body));

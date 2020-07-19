@@ -9,8 +9,8 @@ module.exports = {
             return;
 	} else if (args.length > 0) {
             request.post({
-                url:     "https://faas.jamesmcdermott.ie/function/haveibeenpwned",
-                body:    args
+                url:     "https://faas.jamesmcdermott.ie/function/go-collection",
+                body:    "-f pwned -a" + args
             },
             function(error, response, body) {
 		var n = JSON.parse(body).found;
